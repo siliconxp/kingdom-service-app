@@ -22,7 +22,7 @@ export class MembersPage {
   members: Observable<any>;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private readonly afs: AngularFirestore) {
-    this.membersCollection = afs.collection('members');
+    this.membersCollection = afs.collection('members',ref => ref.orderBy('lname').orderBy('fname'));
     this.members = this.membersCollection.valueChanges();
 
   }
