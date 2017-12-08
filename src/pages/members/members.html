@@ -19,6 +19,29 @@
     <button ion-item *ngFor="let member of members  | async" (click)="itemTapped($event, member)">
       {{member.fname}}&ensp;{{member.lname}}
     </button>
+
+  
+  </ion-list>
+
+  <ion-list #groupList>
+
+    <ion-item-group *ngFor="let group of data.groups">
+
+      <ion-item-divider sticky>
+        <ion-label>
+          {{group.name}}
+        </ion-label>
+      </ion-item-divider>
+      <ion-item-sliding *ngFor="let member of group.members" >
+
+        <button ion-item (click)="goToSessionDetail(member)">
+          <ion-label>{{member.lname }}, {{member.fname }}</ion-label>                      
+        </button>
+      </ion-item-sliding>
+
+
+    </ion-item-group>
+
   </ion-list>
 
 </ion-content>
