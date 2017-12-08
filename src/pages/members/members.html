@@ -6,15 +6,18 @@
 -->
 <ion-header>
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>members</ion-title>
   </ion-navbar>
 </ion-header>
 
 
 <ion-content padding>
-   <ion-list>
+  <ion-list>
     <button ion-item *ngFor="let member of members  | async" (click)="itemTapped($event, member)">
-      {{member|json}}
+      {{member.fname}}&ensp;{{member.lname}}
     </button>
   </ion-list>
 
