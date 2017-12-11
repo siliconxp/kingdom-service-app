@@ -58,10 +58,104 @@ export class MembersPage {
     this.processData();
   }
 
-
   processData() {
 
-    console.log("Called process ...");
+    console.log("Called process ...A");
+    //this.data={};
+
+    //this.data.groups = [];
+
+    this.group$.forEach(
+
+      groups => {
+        groups.forEach(group => {
+          console.log("Called process ... group");
+          let g = this.data.groups.find((g: any) => g.id === group.id);
+          console.log("group result ...", g);
+
+          if (g) {
+            g.name = group.name;
+          } else {
+            group.members = [];
+            this.data.groups.push(group)
+            console.log("groups added here", group);
+
+          }
+
+
+        });
+
+
+      }
+
+    );
+
+    this.member$.forEach(members => {
+
+      members.forEach(
+        member => {
+
+          var group
+          console.log("group member process ... ", member.group);
+          if (member.group) {
+            group = this.data.groups.find((g: any) => g.id === member.group.toString());
+
+          } else {
+            group = this.data.groups.find((g: any) => g.id === null);
+          }
+
+          console.log("member group result ...", group);
+          if (group) {
+            
+
+            group.members = group.members.filter(e => (e.fname !== member.fname)&&(e.lname !== member.lname));
+
+            console.log("members:filered", group.members);
+
+            /*
+                        let m = group.members.find((m: any) => m.id.toString() === member.id.toString());
+                        if(m)
+                        {
+                          const index = group.members.indexOf(m);
+                          group.members.splice(index, 1);
+                        }*/
+
+
+            group.members.push(member)
+            console.log("members:after filered", group.members);
+            
+
+          } else {
+
+
+            if (member.group) {
+              group = { id: member.group.toString() ,members:[]};
+             
+            } else {
+              group = { id: null, name: "Unallocated",members:[] };
+            }
+
+            
+            group.members.push(member);
+            console.log("members:groups added here", group);
+            this.data.groups.push(group)
+
+
+
+          }
+
+          console.log(JSON.stringify(group));
+
+        }
+      )
+    });
+
+
+  }
+
+  processData2() {
+
+    console.log("Called process ...Old");
     //this.data={};
 
     //this.data.groups = [];
@@ -99,12 +193,21 @@ export class MembersPage {
         member => {
           let group = null;
           if (member.group) {
-            group = this.data.groups.find((g: any) => g.id.toString() === member.group.toString());
+            group = this.data.groups.find((g: any) => {
+              if (g.id) {
+                return g.id.toString() === member.group.toString()
+
+              } else {
+                return false
+
+              }
+
+
+            });
           }
-          else
-            {
-              group = this.data.groups.find((g: any) => g.id === null);
-            }
+          else {
+            group = this.data.groups.find((g: any) => g.id === null);
+          }
 
           if (group) {
             console.log("members:groups already here", group);
