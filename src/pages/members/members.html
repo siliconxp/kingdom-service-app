@@ -15,14 +15,7 @@
 
 
 <ion-content padding>
-  <ion-list>
-    <button ion-item *ngFor="let member of members  | async" (click)="itemTapped($event, member)">
-      {{member.fname}}&ensp;{{member.lname}}
-    </button>
-
   
-  </ion-list>
-
   <ion-list #groupList>
 
     <ion-item-group *ngFor="let group of data.groups">
