@@ -27,7 +27,7 @@
       </ion-item-divider>
       <ion-item-sliding *ngFor="let member of group.members" >
 
-        <button ion-item (click)="goToSessionDetail(member)">
+        <button ion-item (click)="goToMemberDetail(member)">
           <ion-label>{{member.lname }}, {{member.fname }}</ion-label>                      
         </button>
       </ion-item-sliding>
