@@ -15,25 +15,62 @@
 
 <ion-content padding>
   <div>
-    <form>
+    <form [formGroup]="memberForm" (ngSubmit)="onFormSubmit()">
       <ion-list>
-        <ion-item>
+        <!--    <ion-item>
           <ion-label for="firstname" stacked>firstname</ion-label>
           <ion-input type="text" name="firstname" [(ngModel)]="member.fname" [disabled]="!edit"></ion-input>
         </ion-item>
         <ion-item>
           <ion-label for="lastname" stacked>lastname</ion-label>
           <ion-input type="text" name="lastname" [(ngModel)]="member.lname" [disabled]="!edit"></ion-input>
-        </ion-item>
-       
+        </ion-item> -->
+
       </ion-list>
+      <ion-list no-lines>
+
+        <ion-item>
+          <ion-label floating>First Name</ion-label>
+          <ion-input formControlName="fname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.fname.valid && (memberForm.controls.fname.dirty || submitAttempt)"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="!memberForm.controls.fname.valid  && (memberForm.controls.fname.dirty || submitAttempt)">
+          <p>Please enter a valid name.</p>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Last Name</ion-label>
+          <ion-input formControlName="lname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.lname.valid && (memberForm.controls.lname.dirty || submitAttempt)"></ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="!memberForm.controls.lname.valid  && (memberForm.controls.lname.dirty || submitAttempt)">
+          <p>Please enter a valid name.</p>
+        </ion-item>  
+         
+        <ion-item-group radio-group formControlName="gender" >  
+            <ion-label floating>Gender</ion-label>
+            <ion-item-divider>Gender</ion-item-divider>
+          <ion-item>
+            <ion-radio item-start value="Male" [disabled]="!edit"></ion-radio>
+            <ion-label>Male</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-radio item-start value="Female" [disabled]="!edit"></ion-radio>
+            <ion-label>Female</ion-label>
+          </ion-item>
+        </ion-item-group>
+
+      </ion-list>
+
       <div padding>
-        <button ion-button color="primary" (click)="onClicked(!edit)">{{edit? "save" : "edit"}}</button>
+        <button ion-button color="primary">{{edit? "save" : "edit"}}</button>
       </div>
     </form>
     <ion-item>
-      {{member|json }}
+      <p>Form value: {{ memberForm.value | json }}</p>
     </ion-item>
 
   </div>
+
+
 </ion-content>

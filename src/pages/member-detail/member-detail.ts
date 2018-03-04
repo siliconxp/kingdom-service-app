@@ -1,6 +1,10 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { DataServiceProvider } from '../../providers/data-service/data-service';
+
 /**
  * Generated class for the MemberDetailPage page.
  *
@@ -17,10 +21,26 @@ export class MemberDetailPage {
 
   @Input() member = null;
   edit: boolean = null;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  $key:string;
+
+  memberForm: FormGroup;
+  submitAttempt: boolean = false;
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder,public db: DataServiceProvider) {
     this.edit = false;
-    this.member=navParams.get("member");
-    
+    //this.member=navParams.get("member");
+
+    this.$key=navParams.get("$key")
+
+    console.log(navParams)
+
+    this.memberForm = fb.group({
+      fname: [navParams.get("fname"), Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+      lname: [navParams.get("lname"), Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
+      gender: navParams.get("gender")
+
+    });
+
   }
 
   ionViewDidLoad() {
@@ -32,9 +52,26 @@ export class MemberDetailPage {
     }
     this.edit = toggle;
   }
-  onSubmit(formValue: any) {
-    console.log(formValue);
-  }
 
+  onFormSubmit() {
+    if (this.edit == true) {
+      this.submitAttempt = true;
+
+      if (this.memberForm.valid) {
+
+        this.db.updateMember(this.$key,this.memberForm.value)
+        console.log("success!")
+        console.log(this.memberForm.value)
+        this.edit = false
+        this.submitAttempt = false
+      }
+      else {//not valid
+
+
+      }
+    } else {
+      this.edit = true;
+    }
+  }
 
 }

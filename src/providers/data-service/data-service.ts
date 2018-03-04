@@ -1,11 +1,27 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+  AngularFirestoreDocument
+} from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import * as firebase from 'firebase/app';
+
+// types
+
+type CollectionPredicate<T> = string | AngularFirestoreCollection<T>;
+type DocPredicate<T> = string | AngularFirestoreDocument<T>;
 
 /*
   Generated class for the DataServiceProvider provider.
@@ -26,29 +42,29 @@ export class DataServiceProvider {
   constructor(private readonly afs: AngularFirestore) {
     console.log('Hello DataServiceProvider Provider');
 
-    this.data={};
-    this.data.groups=[];
-  
+    this.data = {};
+    this.data.groups = [];
 
 
-    this.groupCollectionRef = this.afs.collection<any>('domains/1/groups');   
+
+    this.groupCollectionRef = this.afs.collection<any>('domains/1/groups');
     this.group$ = this.groupCollectionRef.snapshotChanges().map(actions => {
       return actions.map(action => {
         const data = action.payload.doc.data();
-         console.log("group=>",data);
+        console.log("group=>", data);
         const id = action.payload.doc.id;
         return { id, ...data };
       });
     });
-    
+
 
     this.memberCollectionRef = this.afs.collection<any>('domains/1/members', ref => ref.orderBy("lname").orderBy("fname"));
     this.member$ = this.memberCollectionRef.snapshotChanges().map(actions => {
       return actions.map(action => {
         const data = action.payload.doc.data();
-        console.log("member->",data);
-        const id = action.payload.doc.id;
-        return { id, ...data };
+        console.log("member->", data);
+        const $key = action.payload.doc.id;
+        return { $key, ...data };
       });
     });
 
@@ -56,15 +72,15 @@ export class DataServiceProvider {
     this.group$.subscribe(s => this.processData());
 
     this.processData();
-   
 
-    
-    
+
+
+
 
   }
 
 
-  processData() {   
+  processData() {
 
     console.log("Start group process");
     this.group$.forEach(
@@ -95,8 +111,8 @@ export class DataServiceProvider {
     console.log("Start member process");
 
     this.member$.forEach(members => {
-      
-      
+
+
       members.forEach(
         member => {
           console.log("process member called");
@@ -150,7 +166,7 @@ export class DataServiceProvider {
 
           }
 
-          
+
 
         }
       )
@@ -162,17 +178,72 @@ export class DataServiceProvider {
   }
 
 
-  getGroups()
-  {
-     return this.data.groups;
+  getGroups() {
+    return this.data.groups;
   }
 
-  getData(){
+  getData() {
     return Observable.of(this.data);
   }
 
+  updateMember(ref: string, data: any) {
+    
+    return this.memberCollectionRef.doc(ref).update({
+      ...data,
+      updatedAt: this.timestamp
+    });
+
+  }
+
+  addMember(data: any) {
+    const timestamp = this.timestamp
+    return this.memberCollectionRef.add({
+      ...data,
+      updatedAt: timestamp,
+      createdAt: timestamp
+    })
+  }
 
 
+  // *** Code
+
+  get timestamp() {
+    return firebase.firestore.FieldValue.serverTimestamp()
+  }
+
+  /*
+  update<T>(ref: DocPredicate<T>, data: any) {
+    return this.doc(ref).update({
+      ...data,
+      updatedAt: this.timestamp
+    })
+  }
+  
+  set<T>(ref: DocPredicate<T>, data: any) {
+    const timestamp = this.timestamp
+    return this.doc(ref).set({
+      ...data,
+      updatedAt: timestamp,
+      createdAt: timestamp
+    })
+  }
+  
+  add<T>(ref: CollectionPredicate<T>, data) {
+    const timestamp = this.timestamp
+    return this.col(ref).add({
+      ...data,
+      updatedAt: timestamp,
+      createdAt: timestamp
+    })
+  }
+  
+  upsert<T>(ref: DocPredicate<T>, data: any) {
+    const doc = this.doc(ref).snapshotChanges().take(1).toPromise()
+  
+    return doc.then(snap => {
+      return snap.payload.exists ? this.update(ref, data) : this.set(ref, data)
+    })
+  }*/
 
 
 }

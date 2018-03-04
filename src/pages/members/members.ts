@@ -49,7 +49,17 @@ export class MembersPage {
   }
 
   goToMemberDetail(item) {
-    this.navCtrl.push(MemberDetailPage, { member: item });
+
+   console.log(item)
+   
+    this.navCtrl.push(MemberDetailPage, 
+      {
+        $key:item.$key,
+        fname:item.fname,
+        lname:item.lname,
+        gender:item.gender
+      }
+    );
   }
 
   updateData()
