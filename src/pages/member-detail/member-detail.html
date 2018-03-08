@@ -7,7 +7,20 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>member-detail</ion-title>
+    <ion-title item-start>member-detail</ion-title>
+  
+
+    <ion-buttons end>
+      <button ion-button  (click)="save()" *ngIf="edit">
+        Save
+      </button>
+      <button ion-button  (click)="cancelEdit()" *ngIf="edit">
+        Cancel
+      </button>
+      <button ion-button icon-only item-end>
+        <ion-icon name="create" (click)="edit()" *ngIf="!edit"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -50,6 +63,7 @@
           <ion-label floating>Gender</ion-label>
           <ion-input formControlName="gender" type="text" [readonly]="!edit"></ion-input>
         </ion-item>
+
         <ion-item-group radio-group formControlName="gender" *ngIf="edit">  
             <ion-label floating>Gender</ion-label>
             <ion-item-divider>Gender</ion-item-divider>
