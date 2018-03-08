@@ -46,8 +46,11 @@
         <ion-item *ngIf="!memberForm.controls.lname.valid  && (memberForm.controls.lname.dirty || submitAttempt)">
           <p>Please enter a valid name.</p>
         </ion-item>  
-         
-        <ion-item-group radio-group formControlName="gender" >  
+        <ion-item *ngIf="!edit">
+          <ion-label floating>Gender</ion-label>
+          <ion-input formControlName="gender" type="text" [readonly]="!edit"></ion-input>
+        </ion-item>
+        <ion-item-group radio-group formControlName="gender" *ngIf="edit">  
             <ion-label floating>Gender</ion-label>
             <ion-item-divider>Gender</ion-item-divider>
           <ion-item>

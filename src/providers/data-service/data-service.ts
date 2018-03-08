@@ -186,9 +186,8 @@ export class DataServiceProvider {
     return Observable.of(this.data);
   }
 
-  updateMember(ref: string, data: any) {
-    
-    return this.memberCollectionRef.doc(ref).update({
+  updateMember(ref: string, data: any) {    
+   return this.afs.collection('domains/1/members').doc(ref).update({
       ...data,
       updatedAt: this.timestamp
     });
