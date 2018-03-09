@@ -56,6 +56,7 @@ export class MemberDetailPage {
   beginEdit()
   {
     this.edit = true;
+    
   }
 
   cancelEdit()

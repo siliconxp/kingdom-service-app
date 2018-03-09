@@ -6,7 +6,7 @@
 -->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar  color="primary">
     <ion-title item-start>member-detail</ion-title>
 
 
@@ -86,23 +86,26 @@
     </ion-item>
 
   </div>
-
-  <div padding>
-    <button ion-button color="primary">{{edit? "save" : "edit"}}</button>
-  </div>
 </ion-content>
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons end>
-      <button ion-button (click)="onFormSubmit()" *ngIf="edit">
-        Save
+<ion-footer *ngIf="edit">
+  <ion-toolbar >
+    <ion-buttons left>
+      <button ion-button icon-only>
+        <ion-icon name="chatboxes"></ion-icon>
       </button>
-      <button ion-button (click)="cancelEdit()" *ngIf="edit">
+      <button ion-button (click)="cancelEdit()" *ngIf="edit" right>
         Cancel
-      </button>
-      <button ion-button icon-only item-end (click)="beginEdit()" *ngIf="!edit">
-        <ion-icon name="create" ></ion-icon>
-      </button>
+      </button> 
     </ion-buttons>
+    
+      <ion-buttons right>
+        <button ion-button icon-only>
+          <ion-icon name="notifications"></ion-icon>
+        </button>
+        <button ion-button (click)="onFormSubmit()" *ngIf="edit" left>
+          Save
+        </button>
+      </ion-buttons>
+   
   </ion-toolbar>
 </ion-footer>
