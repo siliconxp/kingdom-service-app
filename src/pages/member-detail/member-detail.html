@@ -8,17 +8,17 @@
 
   <ion-navbar>
     <ion-title item-start>member-detail</ion-title>
-  
+
 
     <ion-buttons end>
-      <button ion-button  (click)="save()" *ngIf="edit">
+      <button ion-button (click)="onFormSubmit()" *ngIf="edit">
         Save
       </button>
-      <button ion-button  (click)="cancelEdit()" *ngIf="edit">
+      <button ion-button (click)="cancelEdit()" *ngIf="edit">
         Cancel
       </button>
-      <button ion-button icon-only item-end>
-        <ion-icon name="create" (click)="edit()" *ngIf="!edit"></ion-icon>
+      <button ion-button icon-only item-end (click)="beginEdit()" *ngIf="!edit">
+        <ion-icon name="create" ></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
@@ -58,15 +58,15 @@
 
         <ion-item *ngIf="!memberForm.controls.lname.valid  && (memberForm.controls.lname.dirty || submitAttempt)">
           <p>Please enter a valid name.</p>
-        </ion-item>  
+        </ion-item>
         <ion-item *ngIf="!edit">
           <ion-label floating>Gender</ion-label>
           <ion-input formControlName="gender" type="text" [readonly]="!edit"></ion-input>
         </ion-item>
 
-        <ion-item-group radio-group formControlName="gender" *ngIf="edit">  
-            <ion-label floating>Gender</ion-label>
-            <ion-item-divider>Gender</ion-item-divider>
+        <ion-item-group radio-group formControlName="gender" *ngIf="edit">
+          <ion-label floating>Gender</ion-label>
+          <ion-item-divider>Gender</ion-item-divider>
           <ion-item>
             <ion-radio item-start value="Male" [disabled]="!edit"></ion-radio>
             <ion-label>Male</ion-label>
@@ -79,9 +79,7 @@
 
       </ion-list>
 
-      <div padding>
-        <button ion-button color="primary">{{edit? "save" : "edit"}}</button>
-      </div>
+
     </form>
     <ion-item>
       <p>Form value: {{ memberForm.value | json }}</p>
@@ -89,5 +87,22 @@
 
   </div>
 
-
+  <div padding>
+    <button ion-button color="primary">{{edit? "save" : "edit"}}</button>
+  </div>
 </ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons end>
+      <button ion-button (click)="onFormSubmit()" *ngIf="edit">
+        Save
+      </button>
+      <button ion-button (click)="cancelEdit()" *ngIf="edit">
+        Cancel
+      </button>
+      <button ion-button icon-only item-end (click)="beginEdit()" *ngIf="!edit">
+        <ion-icon name="create" ></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

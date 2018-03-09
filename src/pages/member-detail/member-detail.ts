@@ -53,6 +53,16 @@ export class MemberDetailPage {
     this.edit = toggle;
   }
 
+  beginEdit()
+  {
+    this.edit = true;
+  }
+
+  cancelEdit()
+  {
+    this.edit = false
+  }
+
   onFormSubmit() {
     if (this.edit == true) {
       this.submitAttempt = true;
