@@ -7,7 +7,12 @@ import {
   AngularFirestoreCollection,
   AngularFirestoreDocument
 } from 'angularfire2/firestore';
-import { Observable } from 'rxjs/Observable';
+import {Observable} from "rxjs/Observable";
+import {Subject} from "rxjs/Subject";
+//import {Todo} from "../Todo";
+import {List} from 'immutable';
+//import {asObservable} from "./asObservable";
+import {BehaviorSubject} from "rxjs/Rx";
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/take';
@@ -17,6 +22,9 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 import * as firebase from 'firebase/app';
+
+
+import {Member } from '../model/member'
 
 // types
 
@@ -37,6 +45,9 @@ export class DataServiceProvider {
   memberCollectionRef: AngularFirestoreCollection<any>;
   member$: Observable<any[]>;
 
+  private _groups: BehaviorSubject<List<any>> = new BehaviorSubject(List([]));
+ 
+
   data: any;
 
   constructor(private readonly afs: AngularFirestore) {
@@ -49,13 +60,23 @@ export class DataServiceProvider {
 
     this.groupCollectionRef = this.afs.collection<any>('domains/1/groups');
     this.group$ = this.groupCollectionRef.snapshotChanges().map(actions => {
-      return actions.map(action => {
+         
+      let groups = actions.map(action => {
         const data = action.payload.doc.data();
         console.log("group=>", data);
-        const id = action.payload.doc.id;
-        return { id, ...data };
+        const $key = action.payload.doc.id;
+        return { $key, ...data };
       });
+
+      this._groups.next(List(groups))
+
+
+      return groups;
+
+
     });
+
+
 
 
     this.memberCollectionRef = this.afs.collection<any>('domains/1/members', ref => ref.orderBy("lname").orderBy("fname"));
@@ -64,6 +85,8 @@ export class DataServiceProvider {
         const data = action.payload.doc.data();
         console.log("member->", data);
         const $key = action.payload.doc.id;
+        
+        //return new Member($key,data.fname,data.lname,data.gender);
         return { $key, ...data };
       });
     });
@@ -209,6 +232,9 @@ export class DataServiceProvider {
   get timestamp() {
     return firebase.firestore.FieldValue.serverTimestamp()
   }
+  get groups() {
+    return this._groups.asObservable();
+}
 
   /*
   update<T>(ref: DocPredicate<T>, data: any) {

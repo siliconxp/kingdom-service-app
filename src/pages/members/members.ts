@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 
 import {MemberDetailPage} from '../member-detail/member-detail';
 
-import { DataServiceProvider } from '../../providers/data-service/data-service';
+import { DataServiceProvider } from '../../providers/data-service';
 
 
 /**
@@ -26,17 +26,20 @@ export class MembersPage {
 
 
   data: any;
+  groups:any;
 
 
 
   constructor(public app: App, 
     public navCtrl: NavController, 
     public navParams: NavParams,
-    public dataSource: DataServiceProvider) 
+    public db: DataServiceProvider) 
      {
 
       this.data={};
       this.data.groups=[];
+
+
    
 
   }
@@ -57,16 +60,21 @@ export class MembersPage {
         $key:item.$key,
         fname:item.fname,
         lname:item.lname,
-        gender:item.gender
+        gender:item.gender,
+        group:item.group
       }
     );
   }
 
   updateData()
   {
-   this.dataSource.getData().subscribe((data: any) => {    
+   this.db.getData().subscribe((data: any) => {    
     this.data = data;
   });
+
+  this.db.groups.subscribe(value =>{
+    this.groups=value;
+  } )
 
   }
 

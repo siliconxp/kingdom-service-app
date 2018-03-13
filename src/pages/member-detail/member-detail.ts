@@ -3,7 +3,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { DataServiceProvider } from '../../providers/data-service/data-service';
+import { DataServiceProvider } from '../../providers/data-service';
 
 /**
  * Generated class for the MemberDetailPage page.
@@ -21,23 +21,32 @@ export class MemberDetailPage {
 
   @Input() member = null;
   edit: boolean = null;
-  $key:string;
+  $key: string;
 
   memberForm: FormGroup;
   submitAttempt: boolean = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder,public db: DataServiceProvider) {
+  groups:any
+
+
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public db: DataServiceProvider) {
     this.edit = false;
     //this.member=navParams.get("member");
 
-    this.$key=navParams.get("$key")
+    this.$key = navParams.get("$key")
+
+    //this.groups = 
+    this.db.groups.do(val => console.log("group val",val))
 
     console.log(navParams)
 
     this.memberForm = fb.group({
       fname: [navParams.get("fname"), Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lname: [navParams.get("lname"), Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
-      gender: navParams.get("gender")
+      gender: navParams.get("gender"),
+      group: navParams.get("group")
 
     });
 
@@ -53,15 +62,19 @@ export class MemberDetailPage {
     this.edit = toggle;
   }
 
-  beginEdit()
-  {
+  beginEdit() {
     this.edit = true;
-    
+
   }
 
-  cancelEdit()
-  {
+  cancelEdit() {
     this.edit = false
+    this.memberForm.setValue(
+      {
+        fname: this.navParams.get('fname'),
+        lname: this.navParams.get('lname'),
+        gender: this.navParams.get('gender'),
+      });
   }
 
   onFormSubmit() {
@@ -70,7 +83,7 @@ export class MemberDetailPage {
 
       if (this.memberForm.valid) {
 
-        this.db.updateMember(this.$key,this.memberForm.value)
+        this.db.updateMember(this.$key, this.memberForm.value)
         console.log("success!")
         console.log(this.memberForm.value)
         this.edit = false
