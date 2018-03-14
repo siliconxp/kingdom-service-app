@@ -26,7 +26,7 @@ export class MemberDetailPage {
   memberForm: FormGroup;
   submitAttempt: boolean = false;
 
-  groups:any
+  groups: any
 
 
 
@@ -38,7 +38,7 @@ export class MemberDetailPage {
     this.$key = navParams.get("$key")
 
     //this.groups = 
-    this.db.groups.do(val => console.log("group val",val))
+    this.db.groups.do(val => console.log("group val", val))
 
     console.log(navParams)
 
@@ -46,14 +46,21 @@ export class MemberDetailPage {
       fname: [navParams.get("fname"), Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lname: [navParams.get("lname"), Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       gender: navParams.get("gender"),
-      group: navParams.get("group")
+      group:[ navParams.get("group")]
 
     });
+
+    //this.memberForm.get('group').setValue(2);
+
+    this.db.groups.subscribe(value => {
+      this.groups = value;
+    })
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MemberDetailPage');
+    
   }
 
   onClicked(toggle) {
