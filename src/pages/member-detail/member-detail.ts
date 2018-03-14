@@ -42,14 +42,14 @@ export class MemberDetailPage {
 
     console.log(navParams)
 
-    this.group= new FormControl({ value: navParams.get("group"), disabled: true })
-    this.group.setValue(navParams.get("group"))
+    //this.group= new FormControl({ value: navParams.get("group"), disabled: true })
+    //this.group.setValue(navParams.get("group"))
 
     this.memberForm = fb.group({
       fname: [navParams.get("fname"), Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lname: [navParams.get("lname"), Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       gender: navParams.get("gender"),
-      group: this.group,
+      group: navParams.get("group"),
 
     });
 

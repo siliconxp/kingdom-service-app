@@ -34,9 +34,14 @@
 
 
     </ion-item-group> -->
+   <div *ngIf="groupMembers; else loading;">
 
+   </div>
+      <ng-template #loading>
+        Loading your things...
+      </ng-template>
  
-        <ion-item-group *ngFor="let group of data.groupMembers">
+        <ion-item-group *ngFor="let group of data.groupMembers" >
 
       <ion-item-divider sticky>
         <ion-label>

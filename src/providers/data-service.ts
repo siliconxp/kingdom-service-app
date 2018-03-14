@@ -152,19 +152,19 @@ export class DataServiceProvider {
         console.log("group search ...", i);
 
         if (g) {
-          console.log("Before group update: ", this.data.groupMembers[i].id,this.data.groupMembers[i].name,this.data.groupMembers[i].members.length)
+          console.log("Before group update: ", this.data.groupMembers[i].id, this.data.groupMembers[i].name, this.data.groupMembers[i].members.length)
           g.name = group.name;
           g.$key = group.$key;
           //this.data.groupMembers[i].name = group.name;
-          this.data.groupMembers.slice(i,1,g)
-          console.log("after group update: ", this.data.groupMembers[i].id,this.data.groupMembers[i].name,this.data.groupMembers[i].members.length)
-          
+          this.data.groupMembers.slice(i, 1, g)
+          console.log("after group update: ", this.data.groupMembers[i].id, this.data.groupMembers[i].name, this.data.groupMembers[i].members.length)
+
         } else {
           group.members = [];
           //g = { id: group.id,name:group.name, members: [] };
           this.data.groupMembers.push(group)
           i = this.data.groupMembers.findIndex((o => o.id === group.id));
-          console.log("groups added here:",i);
+          console.log("groups added here:", i);
 
         }
         //console.log("resulting group=>", group.id, group.name);
@@ -198,36 +198,36 @@ export class DataServiceProvider {
       .subscribe(p => {
 
         //Find index of specific object using findIndex method.   
-        var group 
+        var group
         var i = this.data.groupMembers.findIndex((o => o.id === p.id));
         if (i >= 0) {
           //console.log("Before update: ", JSON.stringify(this.data.groupMembers[objIndex]))
-          console.log("Before member update: ", this.data.groupMembers[i].id,this.data.groupMembers[i].name,this.data.groupMembers[i].members.length)
-          
-          group=this.data.groupMembers[i]
-          group.members=p.members
-          this.data.groupMembers.slice(i,1,group)
+          console.log("Before member update: ", this.data.groupMembers[i].id, this.data.groupMembers[i].name, this.data.groupMembers[i].members.length)
 
-          console.log("after member update: ", this.data.groupMembers[i].id,this.data.groupMembers[i].name,this.data.groupMembers[i].members.length)
-          
-          
+          group = this.data.groupMembers[i]
+          group.members = p.members
+          this.data.groupMembers.slice(i, 1, group)
+
+          console.log("after member update: ", this.data.groupMembers[i].id, this.data.groupMembers[i].name, this.data.groupMembers[i].members.length)
+
+
           //Update object's name property.
           //this.data.groupMembers[objIndex].name = "Laila"
           //Log object to console again.
-         // console.log("After update: ", JSON.stringify(this.data.groupMembers[objIndex]))
-        }else{
-          console.log('not found:',p.id)
-          group={}
-          group.id=p.id
-          group.members=p.members
+          // console.log("After update: ", JSON.stringify(this.data.groupMembers[objIndex]))
+        } else {
+          console.log('not found:', p.id)
+          group = {}
+          group.id = p.id
+          group.members = p.members
           group = { id: p.id, members: p.members };
           this.data.groupMembers.push(group)
           i = this.data.groupMembers.findIndex((o => o.id === p.id));
-          console.log("after member add: ", this.data.groupMembers[i].id,this.data.groupMembers[i].name,this.data.groupMembers[i].members.length)
-          
-         // console.log(`adding group=>`, this.data.groupMembers)
+          console.log("after member add: ", this.data.groupMembers[i].id, this.data.groupMembers[i].name, this.data.groupMembers[i].members.length)
 
-        }        
+          // console.log(`adding group=>`, this.data.groupMembers)
+
+        }
         // var group = this.data.groupMembers.find(g => g.id == p.id)
         // console.log(`found group=>`, group)
 
