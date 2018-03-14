@@ -56,6 +56,16 @@ export class MembersPage {
    
   }
 
+  isFemale(g:any)
+  {
+    return (g==="Female");
+  }
+
+  isMale(g:any)
+  {
+    return (g==="Male");
+  }
+
   goToMemberDetail(item) {
 
    console.log(item)

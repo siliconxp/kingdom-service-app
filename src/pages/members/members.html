@@ -43,11 +43,17 @@
           {{group.name}}
         </ion-label>
       </ion-item-divider>
-      <ion-item-sliding *ngFor="let member of group.members">
-
-        <button ion-item (click)="goToMemberDetail(member)">
-          <ion-label>{{member.lname }}, {{member.fname }}</ion-label>                      
-        </button>
+      <ion-item-sliding *ngFor="let member of group.members" (click)="goToMemberDetail(member)">
+      
+        
+        <ion-item icon-start>
+        
+           <ion-icon *ngIf="isFemale(member.gender)" name="woman"></ion-icon>
+            <ion-icon *ngIf="isMale(member.gender)" name="man"></ion-icon>
+          
+         {{member.lname }}, {{member.fname }}                    
+        </ion-item>
+     
       </ion-item-sliding>
 
 
@@ -55,7 +61,7 @@
 
   </ion-list>
   <ion-fab bottom right>
-    <button ion-fab mini><ion-icon name="add"></ion-icon></button>   
+    <button ion-fab mini><ion-icon name="person-add"></ion-icon></button>   
   </ion-fab>
 
 </ion-content>
