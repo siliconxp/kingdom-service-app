@@ -37,7 +37,7 @@
       <ion-list no-lines>
 
         <ion-item>
-          <ion-label floating>First Name</ion-label>
+          <ion-label >First Name</ion-label>
           <ion-input formControlName="fname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.fname.valid && (memberForm.controls.fname.dirty || submitAttempt)"></ion-input>
         </ion-item>
 
@@ -46,7 +46,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label floating>Last Name</ion-label>
+          <ion-label >Last Name</ion-label>
           <ion-input formControlName="lname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.lname.valid && (memberForm.controls.lname.dirty || submitAttempt)"></ion-input>
         </ion-item>
 
@@ -54,7 +54,7 @@
           <p>Please enter a valid name.</p>
         </ion-item>
         <ion-item *ngIf="!edit">
-          <ion-label floating>Gender</ion-label>
+          <ion-label >Gender</ion-label>
           <ion-input formControlName="gender" type="text" [readonly]="!edit"></ion-input>
         </ion-item>
         <!-- 
@@ -72,7 +72,7 @@
         </ion-item-group> -->
 
         <ion-item *ngIf="edit">
-          <ion-label floating>Gender</ion-label>
+          <ion-label >Gender</ion-label>
           <ion-select formControlName="gender">
             <option [ngValue]="null">Choose a gender</option>
             <ion-option [value]="Male">Female</ion-option>
