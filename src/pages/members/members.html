@@ -18,7 +18,25 @@
 
   <ion-list #groupList>
 
-    <ion-item-group *ngFor="let group of data.groups">
+    <!-- <ion-item-group *ngFor="let group of data.groups">
+
+      <ion-item-divider sticky>
+        <ion-label>
+          {{group.name}}
+        </ion-label>
+      </ion-item-divider>
+      <ion-item-sliding *ngFor="let member of group.members">
+
+        <button ion-item (click)="goToMemberDetail(member)">
+          <ion-label>{{member.lname }}, {{member.fname }}</ion-label>                      
+        </button>
+      </ion-item-sliding>
+
+
+    </ion-item-group> -->
+
+ 
+        <ion-item-group *ngFor="let group of data.groupMembers">
 
       <ion-item-divider sticky>
         <ion-label>
@@ -34,14 +52,6 @@
 
 
     </ion-item-group>
-
-    <ion-label> {{groups |json }}</ion-label>
-
-    <ion-item *ngFor="let group of groups">
-
-      <ion-label> {{group |json }}</ion-label>
-
-    </ion-item>
 
   </ion-list>
 

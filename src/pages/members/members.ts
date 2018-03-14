@@ -27,6 +27,7 @@ export class MembersPage {
 
   data: any;
   groups:any;
+  membersByGroup:any
 
 
 
@@ -38,6 +39,10 @@ export class MembersPage {
 
       this.data={};
       this.data.groups=[];
+      this.data.membersByGroup=[];
+      this.membersByGroup=[]
+      
+      
 
 
    
@@ -70,6 +75,7 @@ export class MembersPage {
   {
    this.db.getData().subscribe((data: any) => {    
     this.data = data;
+    this.membersByGroup=this.data.groupMembers
   });
 
   this.db.groups.subscribe(value =>{

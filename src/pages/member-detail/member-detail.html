@@ -6,13 +6,13 @@
 -->
 <ion-header >
 
-  <ion-navbar  color="primary" [hideBackButton]="edit">
-      <ion-buttons left>
+  <ion-navbar  color="primary" >
+     <!--  <ion-buttons left>
                
           <button ion-button icon-only (click)="cancelEdit()" *ngIf="edit" right>
               <ion-icon name="close"></ion-icon>         
           </button> 
-        </ion-buttons>
+        </ion-buttons> -->
     <ion-title center>member</ion-title>
 
 
@@ -92,7 +92,7 @@
 
   </div>
 </ion-content>
-<ion-footer *ngIf="edit">
+<!-- <ion-footer *ngIf="edit">
   <ion-toolbar >
     <ion-buttons left>      
       <button ion-button (click)="cancelEdit()" *ngIf="edit" right>
@@ -110,4 +110,4 @@
       </ion-buttons>
    
   </ion-toolbar>
-</ion-footer>
+</ion-footer> -->
