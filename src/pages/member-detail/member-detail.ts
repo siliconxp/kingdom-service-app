@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 import { DataServiceProvider } from '../../providers/data-service';
 
@@ -27,7 +27,7 @@ export class MemberDetailPage {
   submitAttempt: boolean = false;
 
   groups: any
-
+  group: FormControl
 
 
 
@@ -42,11 +42,14 @@ export class MemberDetailPage {
 
     console.log(navParams)
 
+    this.group= new FormControl({ value: navParams.get("group"), disabled: true })
+    this.group.setValue(navParams.get("group"))
+
     this.memberForm = fb.group({
       fname: [navParams.get("fname"), Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       lname: [navParams.get("lname"), Validators.compose([Validators.maxLength(30), Validators.pattern('[a-zA-Z ]*'), Validators.required])],
       gender: navParams.get("gender"),
-      group:[ navParams.get("group")]
+      group: this.group,
 
     });
 
@@ -60,7 +63,7 @@ export class MemberDetailPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MemberDetailPage');
-    
+
   }
 
   onClicked(toggle) {
@@ -71,6 +74,7 @@ export class MemberDetailPage {
 
   beginEdit() {
     this.edit = true;
+    //(this.memberForm.get("group") as FormControl ).setDisabledState(this.edit)
 
   }
 
@@ -81,6 +85,7 @@ export class MemberDetailPage {
         fname: this.navParams.get('fname'),
         lname: this.navParams.get('lname'),
         gender: this.navParams.get('gender'),
+        group: this.navParams.get('group'),
       });
   }
 

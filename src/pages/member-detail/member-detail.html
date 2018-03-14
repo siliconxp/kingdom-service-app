@@ -38,7 +38,7 @@
 
         <ion-item>
           <ion-label >First Name</ion-label>
-          <ion-input formControlName="fname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.fname.valid && (memberForm.controls.fname.dirty || submitAttempt)"></ion-input>
+          <ion-input formControlName="fname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.fname.valid && (memberForm.controls.fname.dirty || submitAttempt)" item-end></ion-input>
         </ion-item>
 
         <ion-item *ngIf="!memberForm.controls.fname.valid  && (memberForm.controls.fname.dirty || submitAttempt)">
@@ -47,16 +47,16 @@
 
         <ion-item>
           <ion-label >Last Name</ion-label>
-          <ion-input formControlName="lname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.lname.valid && (memberForm.controls.lname.dirty || submitAttempt)"></ion-input>
+          <ion-input formControlName="lname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.lname.valid && (memberForm.controls.lname.dirty || submitAttempt)" ></ion-input>
         </ion-item>
 
         <ion-item *ngIf="!memberForm.controls.lname.valid  && (memberForm.controls.lname.dirty || submitAttempt)">
           <p>Please enter a valid name.</p>
         </ion-item>
-        <ion-item *ngIf="!edit">
+      <!--   <ion-item *ngIf="!edit">
           <ion-label >Gender</ion-label>
-          <ion-input formControlName="gender" type="text" [readonly]="!edit"></ion-input>
-        </ion-item>
+          <ion-input formControlName="gender" type="text" [readonly]="!edit" end></ion-input>
+        </ion-item> -->
         <!-- 
         <ion-item-group radio-group formControlName="gender" *ngIf="edit">
           <ion-label floating>Gender</ion-label>
@@ -71,9 +71,9 @@
           </ion-item>
         </ion-item-group> -->
 
-        <ion-item *ngIf="edit">
+        <ion-item >
           <ion-label >Gender</ion-label>
-          <ion-select formControlName="gender">
+          <ion-select formControlName="gender" [disabled]="!edit">
             <option [ngValue]="null">Choose a gender</option>
             <ion-option [value]="Male">Female</ion-option>
             <ion-option [value]="Female">Male</ion-option>
@@ -96,7 +96,7 @@
 
         <ion-item>
           <ion-label >Group</ion-label>
-          <ion-select formControlName="group" multiple="false">
+          <ion-select formControlName="group" multiple="false" [disabled]="!edit">
             <option [ngValue]="null">Choose a group</option>
             <ion-option *ngFor="let group of groups" [value]="group.id">
               {{ group.name }}
