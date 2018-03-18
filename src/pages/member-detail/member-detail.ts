@@ -27,6 +27,7 @@ export class MemberDetailPage {
   submitAttempt: boolean = false;
 
   groups: any
+  reports: any
   group: FormControl
 
 
@@ -58,6 +59,8 @@ export class MemberDetailPage {
     this.db.groups.subscribe(value => {
       this.groups = value;
     })
+
+    this.db.getMemberReports(this.$key).subscribe(value=>this.reports=value)
 
   }
 
@@ -97,9 +100,10 @@ export class MemberDetailPage {
 
         this.db.updateMember(this.$key, this.memberForm.value)
         console.log("success!")
-        console.log(this.memberForm.value)
+       // console.log(this.memberForm.value)
         this.edit = false
         this.submitAttempt = false
+        this.navCtrl.pop();
       }
       else {//not valid
 

@@ -37,8 +37,9 @@
       <ion-list no-lines>
 
         <ion-item>
-          <ion-label >First Name</ion-label>
-          <ion-input formControlName="fname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.fname.valid && (memberForm.controls.fname.dirty || submitAttempt)" item-end></ion-input>
+          <ion-label>First Name</ion-label>
+          <ion-input formControlName="fname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.fname.valid && (memberForm.controls.fname.dirty || submitAttempt)"
+            item-end></ion-input>
         </ion-item>
 
         <ion-item *ngIf="!memberForm.controls.fname.valid  && (memberForm.controls.fname.dirty || submitAttempt)">
@@ -46,14 +47,14 @@
         </ion-item>
 
         <ion-item>
-          <ion-label >Last Name</ion-label>
-          <ion-input formControlName="lname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.lname.valid && (memberForm.controls.lname.dirty || submitAttempt)" ></ion-input>
+          <ion-label>Last Name</ion-label>
+          <ion-input formControlName="lname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.lname.valid && (memberForm.controls.lname.dirty || submitAttempt)"></ion-input>
         </ion-item>
 
         <ion-item *ngIf="!memberForm.controls.lname.valid  && (memberForm.controls.lname.dirty || submitAttempt)">
           <p>Please enter a valid name.</p>
         </ion-item>
-      <!--   <ion-item *ngIf="!edit">
+        <!--   <ion-item *ngIf="!edit">
           <ion-label >Gender</ion-label>
           <ion-input formControlName="gender" type="text" [readonly]="!edit" end></ion-input>
         </ion-item> -->
@@ -71,8 +72,8 @@
           </ion-item>
         </ion-item-group> -->
 
-        <ion-item >
-          <ion-label >Gender</ion-label>
+        <ion-item>
+          <ion-label>Gender</ion-label>
           <ion-select formControlName="gender" [disabled]="!edit">
             <option [ngValue]="null">Choose a gender</option>
             <ion-option [value]="Male">Female</ion-option>
@@ -80,7 +81,7 @@
           </ion-select>
         </ion-item>
 
-       <!--  <ion-item-group radio-group formControlName="gender" *ngIf="edit">
+        <!--  <ion-item-group radio-group formControlName="gender" *ngIf="edit">
           <ion-label floating>Gender</ion-label>
           <ion-item-divider>Gender</ion-item-divider>
           <ion-item>
@@ -95,7 +96,7 @@
 
 
         <ion-item>
-          <ion-label >Group</ion-label>
+          <ion-label>Group</ion-label>
           <ion-select formControlName="group" multiple="false" [disabled]="!edit">
             <option [ngValue]="null">Choose a group</option>
             <ion-option *ngFor="let group of groups" [value]="group.id">
@@ -112,6 +113,73 @@
     <ion-item>
       <p>Form value: {{ memberForm.value | json }}</p>
     </ion-item>
+
+
+    <ion-card *ngIf="reports; else loading; let reports">
+      <ion-card-header>
+        Reports
+      </ion-card-header>
+
+      <ion-item *ngFor="let report of reports">
+        {{ report | json }}
+      </ion-item>
+
+      <ion-grid>
+          <ion-row >
+              <ion-col>
+                month        
+              </ion-col>
+              <ion-col> 
+                  plcmts  
+              </ion-col>
+              <ion-col> 
+                  videos          
+              </ion-col>
+              <ion-col> 
+                  hours   
+              </ion-col>
+              <ion-col> 
+                  rvs  
+              </ion-col>
+              <ion-col> 
+                  studies   
+              </ion-col>
+              <ion-col>                      
+              </ion-col>
+            </ion-row>
+        <ion-row *ngFor="let report of reports">
+          <ion-col>
+            {{report.month}}          
+          </ion-col>
+          <ion-col> 
+              {{report.plcmts}}   
+          </ion-col>
+          <ion-col> 
+              {{report.videos}}           
+          </ion-col>
+          <ion-col> 
+              {{report.hours}}    
+          </ion-col>
+          <ion-col> 
+              {{report.rvs}}    
+          </ion-col>
+          <ion-col> 
+              {{report.studies}}    
+          </ion-col>
+          <ion-col> 
+              <button ion-button icon-only item-end (click)="editReport(report)" small>
+                  <ion-icon name="create" ></ion-icon>
+                </button>  
+          </ion-col>
+          
+        </ion-row> 
+              
+      </ion-grid>
+
+    </ion-card>
+    <ng-template #loading>
+      Loading your reports...
+    </ng-template>
 
   </div>
 </ion-content>

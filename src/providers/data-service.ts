@@ -119,13 +119,34 @@ export class DataServiceProvider {
 
 
 
+    this.memberCollectionRef.snapshotChanges().map(actions => {
+
+      let members = actions.map(action => {
+        const data = action.payload.doc.data();
+        // console.log("member->", data);
+        const $key = action.payload.doc.id;
+
+        //return new Member($key,data.fname,data.lname,data.gender);
+        return { $key, ...data };
+      });
+      this.data.members = members
+
+      return members;
+
+
+    }).subscribe(
+      m => this._members.next(m)
+      )
+
+
+
     // this._members.subscribe(s => {this.processData();this.groupMembers()});
     // this._groups.subscribe(s => this.processData());
 
     this._members.subscribe(s => { this.groupMembers() });
     this._groups.subscribe(s => { this.groupMembers() });
 
-    this.member$.subscribe(m => this._members.next(m))
+    //this.member$.subscribe(m => this._members.next(m))
     this.group$.subscribe(g => this._groups.next(g))
 
     //this.processData();
@@ -440,6 +461,34 @@ export class DataServiceProvider {
       updatedAt: timestamp,
       createdAt: timestamp
     })
+  }
+
+  getMember($key: any) {
+    return this.afs.doc(`domains/1/members/${$key}`).snapshotChanges().map(action => {
+      if (action.payload.exists === false) {
+        return null;
+      } else {
+        const data = action.payload.data();
+        const id = action.payload.id;
+        return { id, ...data };
+      }
+    });
+  }
+
+  getMemberReports($key: string) {
+    return this.afs.collection(`domains/1/members/${$key}/reports`).snapshotChanges().map(
+
+      changes => {
+        return changes.map(
+          a => {
+            const data = a.payload.doc.data();
+            const $key = a.payload.doc.id;
+            console.log( a.payload.doc.ref)
+            return { $key, ...data };
+          }
+        )
+      }
+    )
   }
 
 
