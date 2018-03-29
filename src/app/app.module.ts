@@ -8,6 +8,8 @@ import { ListPage } from '../pages/list/list';
 import { MembersPage } from '../pages/members/members';
 import {MemberDetailPage} from '../pages/member-detail/member-detail';
 import { TabsPage } from '../pages/tabs/tabs';
+import { LoginPage } from '../pages/login/login';
+
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -25,6 +27,7 @@ import { DataServiceProvider } from '../providers/data-service';
 @NgModule({
   declarations: [
     MyApp,
+    LoginPage,
     TabsPage,
     HomePage,
     ListPage,
@@ -40,6 +43,7 @@ import { DataServiceProvider } from '../providers/data-service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
+    LoginPage,
     TabsPage,
     HomePage,
     ListPage,
