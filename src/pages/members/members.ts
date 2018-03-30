@@ -9,6 +9,10 @@ import {MemberDetailPage} from '../member-detail/member-detail';
 import { DataServiceProvider } from '../../providers/data-service';
 
 
+import 'rxjs/add/operator/debounceTime';
+import { FormGroup, FormControl } from '@angular/forms';
+
+
 /**
  * Generated class for the MembersPage page.
  *
@@ -29,6 +33,9 @@ export class MembersPage {
   groups:any;
   groupMembers:any
 
+  public filterInput = new FormControl();
+  public filterText: string;
+
 
 
   constructor(public app: App, 
@@ -41,6 +48,16 @@ export class MembersPage {
       this.data.groups=[];
      // this.data.membersByGroup=[];
       //this.membersByGroup=[]
+
+
+
+      this.filterInput
+      .valueChanges
+      .debounceTime(200)
+      .subscribe(term => {
+        this.filterText = term;
+        console.log(term);
+      });
       
       
 

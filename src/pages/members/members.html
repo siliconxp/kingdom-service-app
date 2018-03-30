@@ -11,7 +11,7 @@
     </button>
     <ion-title>members</ion-title>
   </ion-navbar>
-  <ion-searchbar [(ngModel)]="terms"></ion-searchbar>
+  <ion-searchbar [formControl]="filterInput"></ion-searchbar>
 </ion-header>
 
 
@@ -49,7 +49,7 @@
           {{group.name}}
         </ion-label>
       </ion-item-divider>
-      <ion-item-sliding *ngFor="let member of (group.members|search : terms)" (click)="goToMemberDetail(member)">
+      <ion-item-sliding *ngFor="let member of (group.members|search : filterText)" (click)="goToMemberDetail(member)">
       
         
         <ion-item icon-start>
