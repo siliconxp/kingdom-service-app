@@ -10,6 +10,8 @@ import {MemberDetailPage} from '../pages/member-detail/member-detail';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 
+import { SearchPipe } from '../pipes/search/search';
+
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -32,7 +34,8 @@ import { DataServiceProvider } from '../providers/data-service';
     HomePage,
     ListPage,
     MembersPage,
-    MemberDetailPage
+    MemberDetailPage,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
