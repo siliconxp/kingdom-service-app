@@ -101,6 +101,10 @@ export class DataServiceProvider {
         // console.log("member->", data);
         const $key = action.payload.doc.id;
 
+        //so fb can cache reports
+        this.afs.collection<any>(`domains/1/members${$key}/reports`).valueChanges().subscribe()
+
+
         //return new Member($key,data.fname,data.lname,data.gender);
         return { $key, ...data };
       });
