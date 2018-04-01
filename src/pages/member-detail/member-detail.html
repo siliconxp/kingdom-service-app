@@ -110,9 +110,9 @@
 
 
     </form>
-    <ion-item>
+ <!--    <ion-item>
       <p>Form value: {{ memberForm.value | json }}</p>
-    </ion-item>
+    </ion-item> -->
 
 
     <ion-card *ngIf="reports; else loading; let reports">
@@ -147,22 +147,22 @@
             {{report.month}}          
           </ion-col>
           <ion-col> 
-              {{report.Plcmts}}   
+              {{report.Plcmts|nozero}}   
           </ion-col>
           <ion-col> 
-              {{report.Videos}}           
+              {{report.Videos|nozero}}           
           </ion-col>
           <ion-col> 
-              {{report.Hours}}    
+              {{report.Hours|nozero}}    
           </ion-col>
           <ion-col> 
-              {{report.RVs}}    
+              {{report.RVs|nozero}}    
           </ion-col>
           <ion-col> 
-              {{report.BiSt}}    
+              {{report.BiSt|nozero}}    
           </ion-col>
           <ion-col> 
-              <button ion-button icon-only item-end (click)="editReport(report)" small clear>
+              <button *ngIf="report.Hours==0" ion-button icon-only item-end (click)="editReport(report)" small clear>
                   <ion-icon name="create" ></ion-icon>
                 </button>  
                 

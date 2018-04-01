@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { SearchPipe } from './search/search';
+import { NozeroPipe } from './nozero/nozero';
 @NgModule({
-	declarations: [SearchPipe],
+	declarations: [SearchPipe,
+    NozeroPipe],
 	imports: [],
-	exports: [SearchPipe]
+	exports: [SearchPipe,
+    NozeroPipe]
 })
 export class PipesModule {}

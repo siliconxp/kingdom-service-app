@@ -11,7 +11,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 
 import { SearchPipe } from '../pipes/search/search';
-
+import { NozeroPipe } from '../pipes/nozero/nozero';
 
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -35,7 +35,7 @@ import { DataServiceProvider,MemberData } from '../providers/data-service';
     ListPage,
     MembersPage,
     MemberDetailPage,
-    SearchPipe
+    SearchPipe,NozeroPipe
   ],
   imports: [
     BrowserModule,
