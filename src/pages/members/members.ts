@@ -53,7 +53,7 @@ export class MembersPage {
 
       this.filterInput
       .valueChanges
-      .debounceTime(200)
+      .debounceTime(1000)
       .subscribe(term => {
         this.filterText = term;
         console.log(term);
