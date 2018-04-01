@@ -21,6 +21,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
 
 import * as firebase from 'firebase/app';
+import { firebaseConfig } from '../environment';
 
 
 import { Member } from '../model/member'
@@ -57,6 +58,7 @@ export class DataServiceProvider {
     this.data.groups = [];
     this.data.members = [];
     this.data.groupMembers = [];
+    this.data.reports={}
 
 
 
@@ -102,7 +104,9 @@ export class DataServiceProvider {
         const $key = action.payload.doc.id;
 
         //so fb can cache reports
-        this.afs.collection<any>(`domains/1/members${$key}/reports`).valueChanges().subscribe()
+        this.afs.collection<any>(`domains/1/members/${$key}/reports`).valueChanges().subscribe(
+          v=>{this.data.reports[$key]=v;console.log('reports for'+$key)}
+        )
 
 
         //return new Member($key,data.fname,data.lname,data.gender);
@@ -487,7 +491,7 @@ export class DataServiceProvider {
           a => {
             const data = a.payload.doc.data();
             const $key = a.payload.doc.id;
-            console.log( a.payload.doc.ref)
+            //console.log( a.payload.doc.ref)
             return { $key, ...data };
           }
         )
@@ -543,3 +547,82 @@ export class DataServiceProvider {
 
 
 }
+
+
+
+@Injectable()
+export class MemberData {
+    // db is plan firestore / no angularfire
+    db: firebase.firestore.Firestore
+
+    constructor(private readonly afs: AngularFirestore){
+
+      console.log('init fb')
+
+   
+
+     /*  firebase.initializeApp(firebaseConfig);
+      
+      firebase.firestore().enablePersistence()
+        .then(function() {
+            // Initialize Cloud Firestore through firebase
+            this.db = firebase.firestore();
+            console.log('inited fb')
+        })
+        .catch(function(err) {
+            if (err.code == 'failed-precondition') {
+                // Multiple tabs open, persistence can only be enabled
+                // in one tab at a a time.
+                // ...
+            } else if (err.code == 'unimplemented') {
+                // The current browser does not support all of the
+                // features required to enable persistence
+                // ...
+            }
+        }); */
+
+    }
+
+
+    loadMembers() {
+
+      console.log('calling load fb')
+
+      this.db = firebase.firestore();
+      
+        const memberRef = this.db.collection('domains/1/members');
+        return this.observeCollection(memberRef).
+            map(members => {
+                return members.map(member => {
+                    return {
+                        member,
+                        reports$: this.observeCollection(member.ref.collection('reports'))
+                    };
+                })
+            });
+    }
+
+    // Takes a reference and returns an array of documents
+    // with the id and reference
+    private observeCollection(ref) {
+        return Observable.create((observer) => {
+            const unsubscribeFn = ref.onSnapshot(
+                snapshot => {
+                    observer.next(snapshot.docs.map(doc => {
+                        const data = doc.data();
+                        console.log(doc.ref)
+                        return {
+                            ...doc.data(),
+                            id: doc.id,
+                            ref: doc.ref
+                        };
+                    }));
+                },
+                error => observer.error(error),
+            );
+
+            return unsubscribeFn;
+        });
+    }
+}
+
