@@ -5,6 +5,9 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 
 import { DataServiceProvider } from '../../providers/data-service';
 
+import { ModalController } from 'ionic-angular';
+import { MemberReportPage } from '../member-report/member-report';
+
 /**
  * Generated class for the MemberDetailPage page.
  *
@@ -32,7 +35,7 @@ export class MemberDetailPage {
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public db: DataServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public db: DataServiceProvider,public modalCtrl: ModalController) {
     this.edit = false;
     //this.member=navParams.get("member");
 
@@ -113,5 +116,16 @@ export class MemberDetailPage {
       this.edit = true;
     }
   }
+
+  viewReport(report:any)
+  {
+
+    let modal = this.modalCtrl.create(MemberReportPage,{report:report});
+    modal.present();
+
+  }
+
+
+  
 
 }

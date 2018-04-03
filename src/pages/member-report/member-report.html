@@ -1,0 +1,65 @@
+<!--
+  Generated template for the MemberReportPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>member-report</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-card *ngIf="report">
+    <ion-card-header>
+      report for
+    </ion-card-header>
+    <form (ngSubmit)="saveForm()">
+      <ion-list no-lines>
+        <ion-item>
+          <ion-label>Month</ion-label>
+          <ion-input type="text" [(ngModel)]="report.month" name="month"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Placements</ion-label>
+          <ion-input type="text" [(ngModel)]="report.Plcmts" name="Plcmts" text-right></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Video</ion-label>
+          <ion-input type="text" [(ngModel)]="report.Videos" name="Videos" text-right></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Hours</ion-label>
+          <ion-input type="text" [(ngModel)]="report.Hours" name="Hours" text-right></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Return Visits</ion-label>
+          <ion-input type="text" [(ngModel)]="report.RVs" name="RVs" text-right></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Bible Studies</ion-label>
+          <ion-input type="text" [(ngModel)]="report.BiSt" name="RVs" text-right></ion-input>
+        </ion-item>
+      </ion-list>
+      <button ion-button type="submit" block>Save</button>
+    </form>
+  </ion-card>
+</ion-content>
+<ion-footer>
+  <ion-row>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="danger" (click)="closeForm()" icon-start>
+        <ion-icon name="close"></ion-icon>Cancel</button>
+    </ion-col>
+    <ion-col no-padding>
+      <button no-margin ion-button full large color="primary" (click)="saveForm()" icon-start>
+        <ion-icon name="checkmark"></ion-icon>Update</button>
+    </ion-col>
+
+  </ion-row>
+</ion-footer>

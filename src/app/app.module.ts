@@ -6,7 +6,8 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import { MembersPage } from '../pages/members/members';
-import {MemberDetailPage} from '../pages/member-detail/member-detail';
+import { MemberDetailPage } from '../pages/member-detail/member-detail';
+import { MemberReportPage } from '../pages/member-report/member-report';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 
@@ -23,8 +24,8 @@ import { firebaseConfig } from '../environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { DataServiceProvider,MemberData } from '../providers/data-service';
- 
+import { DataServiceProvider, MemberData } from '../providers/data-service';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DataServiceProvider,MemberData } from '../providers/data-service';
     ListPage,
     MembersPage,
     MemberDetailPage,
-    SearchPipe,NozeroPipe
+    MemberReportPage,
+    SearchPipe, NozeroPipe
   ],
   imports: [
     BrowserModule,
@@ -51,13 +53,14 @@ import { DataServiceProvider,MemberData } from '../providers/data-service';
     HomePage,
     ListPage,
     MembersPage,
+    MemberReportPage,
     MemberDetailPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DataServiceProvider,MemberData
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    DataServiceProvider, MemberData
   ]
 })
-export class AppModule {}
+export class AppModule { }
