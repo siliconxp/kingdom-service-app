@@ -43,10 +43,10 @@
         </ion-item>
         <ion-item>
           <ion-label>Bible Studies</ion-label>
-          <ion-input type="text" [(ngModel)]="report.BiSt" name="RVs" text-right></ion-input>
+          <ion-input type="text" [(ngModel)]="report.BiSt" name="BiSt" text-right></ion-input>
         </ion-item>
       </ion-list>
-      <button ion-button type="submit" block>Save</button>
+      <!-- <button ion-button type="submit" block>Save</button> -->
     </form>
   </ion-card>
 </ion-content>
@@ -57,7 +57,7 @@
         <ion-icon name="close"></ion-icon>Cancel</button>
     </ion-col>
     <ion-col no-padding>
-      <button no-margin ion-button full large color="primary" (click)="saveForm()" icon-start>
+      <button no-margin ion-button full large color="primary" (click)="saveForm()" disabled="!isValid" icon-start>
         <ion-icon name="checkmark"></ion-icon>Update</button>
     </ion-col>
 

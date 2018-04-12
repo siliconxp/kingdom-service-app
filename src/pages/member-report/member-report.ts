@@ -17,9 +17,13 @@ import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angula
 export class MemberReportPage {
 
   report: any
+  memberKey:any
+  isCancelled:boolean = false;
+  isValid:boolean=false;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) {
     this.report=navParams.get('report');
+    this.memberKey=navParams.get('memberKey');
   }
 
   ionViewDidLoad() {
@@ -28,13 +32,24 @@ export class MemberReportPage {
 
   saveForm() {
 
-    console.log(this.report)
+   
     this.viewCtrl.dismiss(this.report);
 
   }
 
   closeForm() {
+    this.isCancelled=true;
     this.viewCtrl.dismiss();
   }
+
+  ionViewCanLeave(): boolean{
+    // here we can either return true or false
+    // depending on if we want to leave this view
+    if(this.isValid || this.isCancelled){
+       return true;
+     } else {
+       return false;
+     }
+   }
 
 }

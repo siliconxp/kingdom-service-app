@@ -120,7 +120,25 @@ export class MemberDetailPage {
   viewReport(report:any)
   {
 
-    let modal = this.modalCtrl.create(MemberReportPage,{report:report});
+    let reportData =
+    {
+      month:this.reports.month,
+      Plcmts:(this.reports.Plcmts>0?this.reports.Plcmts:''),
+      Videos:(this.reports.Videos>0?this.reports.Videos:''),
+      Hours:(this.reports.Hours>0?this.reports.Hours:''),
+      RVs:(this.reports.RVs>0?this.reports.RVs:''),
+      BiSt:(this.reports.BiSt>0?this.reports.BiSt:''),
+      
+
+
+    }
+
+    let modal = this.modalCtrl.create(MemberReportPage,{memberKey:this.$key,report:report});
+
+    modal.onWillDismiss(data => {
+      // Update your props here
+      console.log('MODAL DATA', data);
+  });
     modal.present();
 
   }
