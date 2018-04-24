@@ -5,6 +5,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { ListPage } from '../list/list';
 import { MembersPage } from '../members/members';
+import { MeetingAttendancePage } from '../meeting-attendance/meeting-attendance';
+
+
 
 @Component({
   templateUrl: 'tabs.html'
@@ -14,6 +17,9 @@ export class TabsPage {
   tab1Root = HomePage;
   tab2Root = MembersPage;
   tab3Root = ListPage;
+  tab4Root = MeetingAttendancePage;
+  
+  
 
   myIndex: number;
 

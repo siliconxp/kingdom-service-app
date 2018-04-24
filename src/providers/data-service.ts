@@ -42,11 +42,14 @@ export class DataServiceProvider {
 
   groupCollectionRef: AngularFirestoreCollection<any>;
   group$: Observable<any[]>;
-  memberCollectionRef: AngularFirestoreCollection<any>;
+  memberCollectionRef: AngularFirestoreCollection<any>;  
   member$: Observable<any[]>;
+
+  private meetingAttendanceRef: AngularFirestoreCollection<any>;
 
   private _groups: BehaviorSubject<any[]> = new BehaviorSubject([]);
   private _members: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  private meetingAttendace$: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
 
   data: any;
@@ -64,6 +67,9 @@ export class DataServiceProvider {
 
 
     this.groupCollectionRef = this.afs.collection<any>('domains/1/groups');
+
+    this.meetingAttendanceRef = this.afs.collection<any>('domains/1/meeting-attendance');
+    this.meetingAttendanceRef.valueChanges().subscribe(v=>this.meetingAttendace$.next(v))
 
 
     this.group$ = this.groupCollectionRef.snapshotChanges().map(actions => {
@@ -507,6 +513,13 @@ export class DataServiceProvider {
   }
   get groups() {
     return this._groups.asObservable();
+  }
+
+  get members() {
+    return this._members.asObservable();
+  }
+  get attendance() {
+    return this.meetingAttendace$.asObservable();
   }
 
 
