@@ -27,7 +27,7 @@ export class MeetingAttendancePage {
 
     let prompt = this.alertCtrl.create({
       title: 'Report',
-      message: "Enter a name for this new song you're so keen on adding",
+      message: "Update Attendance Figures",
       inputs: [
         {
           name: 'midweek',
