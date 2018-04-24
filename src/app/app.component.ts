@@ -31,8 +31,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage, index: 0 },      
       { title: 'Members', component: MembersPage, index: 1 },
-      { title: 'List', component: ListPage, index: 2 },
-      { title: 'Attendance', component: MeetingAttendancePage, index: 3 }
+      { title: 'Attendance', component: MeetingAttendancePage, index: 2 }
+     
     ];
 
   }

@@ -16,10 +16,8 @@ export class TabsPage {
 
   tab1Root = HomePage;
   tab2Root = MembersPage;
-  tab3Root = ListPage;
-  tab4Root = MeetingAttendancePage;
-  
-  
+  tab3Root = MeetingAttendancePage;
+ 
 
   myIndex: number;
 
