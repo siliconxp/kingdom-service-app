@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, App, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, App, NavParams,ModalController } from 'ionic-angular';
 
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 
-import {MemberDetailPage} from '../member-detail/member-detail';
+
 
 import { DataServiceProvider } from '../../providers/data-service';
+
+import {MemberDetailPage} from '../member-detail/member-detail';
+import { MemberReportPage } from '../member-report/member-report';
 
 
 import 'rxjs/add/operator/debounceTime';
@@ -40,6 +43,7 @@ export class MembersPage {
 
   constructor(public app: App, 
     public navCtrl: NavController, 
+    public modalCtrl:ModalController,
     public navParams: NavParams,
     public db: DataServiceProvider) 
      {
@@ -108,6 +112,14 @@ export class MembersPage {
   this.db.groups.subscribe(value =>{
     this.groups=value;
   } )
+
+  }
+
+  editReport(report:any)
+  {
+
+    let modal = this.modalCtrl.create(MemberReportPage,{report:report});
+    modal.present();
 
   }
 

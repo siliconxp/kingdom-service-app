@@ -35,39 +35,51 @@
 
 
     </ion-item-group> -->
-   <div *ngIf="groupMembers; else loading;">
+    <div *ngIf="groupMembers; else loading;">
 
-   </div>
-      <ng-template #loading>
-        Loading your things...
-      </ng-template>
- 
-        <ion-item-group *ngFor="let group of data.groupMembers" >
+    </div>
+    <ng-template #loading>
+      Loading your things...
+    </ng-template>
+
+    <ion-item-group *ngFor="let group of data.groupMembers">
 
       <ion-item-divider sticky>
         <ion-label>
           {{group.name}}
         </ion-label>
       </ion-item-divider>
-      <ion-item-sliding *ngFor="let member of (group.members|search : filterText)" (click)="goToMemberDetail(member)">
-      
-        
-        <ion-item icon-start>
-        
-           <ion-icon *ngIf="isFemale(member.gender)" name="woman"></ion-icon>
-            <ion-icon *ngIf="isMale(member.gender)" name="man"></ion-icon>
-          
-         {{member.lname }}, {{member.fname }}                    
+      <ion-item-sliding *ngFor="let member of (group.members|search : filterText)">
+
+
+        <ion-item icon-start (click)="editReport(report)">
+
+          <ion-icon *ngIf="isFemale(member.gender)" name="woman"></ion-icon>
+          <ion-icon *ngIf="isMale(member.gender)" name="man"></ion-icon>
+
+          {{member.lname }}, {{member.fname }}
+
         </ion-item>
-     
+
+        <ion-item-options>
+          <button ion-button color="primary" (click)="goToMemberDetail(member)">Edit</button>
+          <button ion-button icon-only item-end clear>
+            <ion-icon name="create"></ion-icon>
+          </button>
+        </ion-item-options>
       </ion-item-sliding>
 
 
     </ion-item-group>
+    <ion-item-sliding>
+
+    </ion-item-sliding>
 
   </ion-list>
   <ion-fab bottom right>
-    <button ion-fab mini><ion-icon name="person-add"></ion-icon></button>   
+    <button ion-fab mini>
+      <ion-icon name="person-add"></ion-icon>
+    </button>
   </ion-fab>
 
 </ion-content>
