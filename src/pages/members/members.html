@@ -49,44 +49,107 @@
           {{group.name}}
         </ion-label>
       </ion-item-divider>
+
+      <!-- <ion-card *ngFor="let member of (group.members|search : filterText)">
+       
+          <ion-item icon-start (click)="editReport(report)">
+
+            <ion-icon *ngIf="isFemale(member.gender)" name="woman"></ion-icon>
+            <ion-icon *ngIf="isMale(member.gender)" name="man"></ion-icon>
+  
+            {{member.lname }}, {{member.fname }}
+  
+          </ion-item>
+         
+      
+      </ion-card> -->
+
       <ion-item-sliding *ngFor="let member of (group.members|search : filterText)">
 
+        
 
-        <ion-item icon-start (click)="editReport(report)">
+       
+      
+        <ion-item icon-start >
 
           <ion-icon *ngIf="isFemale(member.gender)" name="woman"></ion-icon>
           <ion-icon *ngIf="isMale(member.gender)" name="man"></ion-icon>
 
           {{member.lname }}, {{member.fname }}
 
+          
+            <button ion-button icon-only item-end clear (click)="editReport(report)">
+              <ion-icon name="paper" ></ion-icon>
+            </button>
+            <button ion-button icon-only item-end clear (click)="goToMemberDetail(member)">
+              <ion-icon name="create"></ion-icon>
+            </button>
+           
+          
+
         </ion-item>
-        <ion-item item-end>
-          <button ion-button color="primary" (click)="goToMemberDetail(member)">JAN</button>
-          <button ion-button color="primary" (click)="goToMemberDetail(member)">FEB</button>
-          <button ion-button color="primary" (click)="goToMemberDetail(member)">MAR</button>
-          <button ion-button color="primary" (click)="goToMemberDetail(member)">APR</button>
-          <button ion-button color="primary" (click)="goToMemberDetail(member)">MAY</button>
-          <button ion-button color="primary" (click)="goToMemberDetail(member)">JUN</button>
-          <button ion-button color="primary" (click)="goToMemberDetail(member)">JUL</button>
-          <button ion-button color="primary" (click)="goToMemberDetail(member)">AUG</button>
-          <button ion-button color="primary" (click)="goToMemberDetail(member)">SEP</button>
-          <button ion-button color="primary" (click)="goToMemberDetail(member)">OCT</button>
-        </ion-item>
+        
+    
+
+
+   
+    <!-- <ion-row>
+      <ion-col col-12 col-sm-1 col-xs-3>
+        <button ion-button color="primary" (click)="goToMemberDetail(member)">JAN</button>
+      </ion-col>
+      <ion-col col-12 col-sm-1 col-xs-3>
+        <button ion-button color="primary" (click)="goToMemberDetail(member)">FEB</button></ion-col>
+        <ion-col col-12 col-sm-1 col-xs-3>
+        <button ion-button color="primary" (click)="goToMemberDetail(member)">MAR</button>
+      </ion-col>
+      <ion-col col-12 col-sm-1 col-xs-3>
+        <button ion-button color="primary" (click)="goToMemberDetail(member)">APR</button>
+      </ion-col>
+      <ion-col col-12 col-sm-1 col-xs-3>
+        <button ion-button color="primary" (click)="goToMemberDetail(member)">MAY</button>
+      </ion-col>
+      <ion-col col-12 col-sm-1 col-xs-3>
+        <button ion-button color="primary" (click)="goToMemberDetail(member)">JUN</button>
+      </ion-col>
+      <ion-col col-12 col-sm-1 col-xs-3>
+        <button ion-button color="primary" (click)="goToMemberDetail(member)">JUL</button>
+      </ion-col>
+      <ion-col col-12 col-sm-1 col-xs-3>
+        <button ion-button color="primary" (click)="goToMemberDetail(member)">AUG</button>
+      </ion-col>
+      <ion-col col-12 col-sm-1 col-xs-3>
+        <button ion-button color="primary" (click)="goToMemberDetail(member)">SEP</button>
+      </ion-col>
+      <ion-col col-12 col-sm-1 col-xs-3>
+        <button ion-button color="primary" (click)="goToMemberDetail(member)">OCT</button>
+      </ion-col>
+
+    </ion-row>
+  </ion-grid> -->
+    
 
         <ion-item-options>
           <button ion-button color="primary" (click)="goToMemberDetail(member)">Edit</button>
           <button ion-button icon-only item-end clear>
             <ion-icon name="create"></ion-icon>
           </button>
-         
+
+
         </ion-item-options>
+
       </ion-item-sliding>
 
 
+
+
     </ion-item-group>
-   
+
 
   </ion-list>
+
+
+
+
   <ion-fab bottom right>
     <button ion-fab mini>
       <ion-icon name="person-add"></ion-icon>
