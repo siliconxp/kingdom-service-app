@@ -25,13 +25,21 @@ export class MemberReportPage {
 
   placements = new FormControl('')
   videos = new FormControl('')
-  hours = new FormControl('')
+  hours = new FormControl('',Validators.required)
   rvs = new FormControl('')
   BiSt = new FormControl('')
   remarks = new FormControl('')
   pio = new FormControl('')
 
-  reportForm: FormGroup;
+  reportForm: FormGroup= this.fb.group({
+    placements: this.placements,
+    videos: this.videos,
+    hours: this.hours,
+    rvs: this.rvs,
+    BiSt: this.BiSt,
+    remarks: this.remarks,
+    pio: this.pio    
+  });
 
  
   
@@ -40,15 +48,17 @@ export class MemberReportPage {
     this.report=navParams.get('report');
     this.memberKey=navParams.get('memberKey');
 
-    this.reportForm = this.fb.group({
-      placements: this.placements,
-      videos: this.videos,
-      hours: this.hours,
-      rvs: this.rvs,
-      BiSt: this.BiSt,
-      remarks: this.remarks,
-      pio: this.pio    
-    });
+
+    this.hours.valueChanges.subscribe(
+      h=>{
+        if(h>0)        
+        this.isValid = true
+        else
+        this.isValid=false
+      }
+    )
+
+    
 
   }
 
