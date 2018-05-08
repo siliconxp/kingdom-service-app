@@ -8,6 +8,7 @@ import { ListPage } from '../pages/list/list';
 import { MembersPage } from '../pages/members/members';
 import { MemberDetailPage } from '../pages/member-detail/member-detail';
 import { MemberReportPage } from '../pages/member-report/member-report';
+import { MemberReportsPage } from '../pages/member-reports/member-reports';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { MeetingAttendancePage } from '../pages/meeting-attendance/meeting-attendance';
@@ -38,6 +39,7 @@ import { DataServiceProvider, MemberData } from '../providers/data-service';
     MembersPage,
     MemberDetailPage,
     MemberReportPage,
+    MemberReportsPage,
     MeetingAttendancePage,
     SearchPipe, NozeroPipe
   ],
@@ -56,6 +58,7 @@ import { DataServiceProvider, MemberData } from '../providers/data-service';
     ListPage,
     MembersPage,
     MemberReportPage,
+    MemberReportsPage,    
     MemberDetailPage,
     MeetingAttendancePage
   ],

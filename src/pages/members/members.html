@@ -70,7 +70,7 @@
 
        
       
-        <ion-item icon-start >
+        <ion-item icon-start>
 
           <ion-icon *ngIf="isFemale(member.gender)" name="woman"></ion-icon>
           <ion-icon *ngIf="isMale(member.gender)" name="man"></ion-icon>
@@ -78,7 +78,7 @@
           {{member.lname }}, {{member.fname }}
 
           
-            <button ion-button icon-only item-end clear (click)="editReport(report)">
+            <button ion-button icon-only item-end clear (click)="goToMemberReports(member)">
               <ion-icon name="paper" ></ion-icon>
             </button>
             <button ion-button icon-only item-end clear (click)="goToMemberDetail(member)">

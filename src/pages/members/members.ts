@@ -9,7 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import { DataServiceProvider } from '../../providers/data-service';
 
 import {MemberDetailPage} from '../member-detail/member-detail';
-import { MemberReportPage } from '../member-report/member-report';
+import { MemberReportsPage } from '../member-reports/member-reports';
 
 
 import 'rxjs/add/operator/debounceTime';
@@ -102,6 +102,21 @@ export class MembersPage {
     );
   }
 
+  goToMemberReports(item) {
+
+    console.log(item)
+    
+     this.navCtrl.push(MemberReportsPage, 
+       {
+         $key:item.$key,
+         fname:item.fname,
+         lname:item.lname,
+         gender:item.gender,
+         group:item.group
+       }
+     );
+   }
+
   updateData()
   {
    this.db.getData().subscribe((data: any) => {    
@@ -115,13 +130,7 @@ export class MembersPage {
 
   }
 
-  editReport(report:any)
-  {
-
-    let modal = this.modalCtrl.create(MemberReportPage,{report:report});
-    modal.present();
-
-  }
+ 
 
  
 

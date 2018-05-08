@@ -115,67 +115,7 @@
     </ion-item> -->
 
 
-    <ion-card *ngIf="reports; else loading; let reports">
-      <ion-card-header>
-        Reports
-      </ion-card-header>
-      <ion-grid>
-          <ion-row >
-              <ion-col>
-                month        
-              </ion-col>
-              <ion-col> 
-                  plcmts  
-              </ion-col>
-              <ion-col> 
-                  videos          
-              </ion-col>
-              <ion-col> 
-                  hours   
-              </ion-col>
-              <ion-col> 
-                  rvs  
-              </ion-col>
-              <ion-col> 
-                  studies   
-              </ion-col>
-              <ion-col>                      
-              </ion-col>
-            </ion-row>
-        <ion-row *ngFor="let report of reports" (click)="viewReport(report)">
-          <ion-col>
-            {{report.month}}          
-          </ion-col>
-          <ion-col> 
-              {{report.Plcmts|nozero}}   
-          </ion-col>
-          <ion-col> 
-              {{report.Videos|nozero}}           
-          </ion-col>
-          <ion-col> 
-              {{report.Hours|nozero}}    
-          </ion-col>
-          <ion-col> 
-              {{report.RVs|nozero}}    
-          </ion-col>
-          <ion-col> 
-              {{report.BiSt|nozero}}    
-          </ion-col>
-          <ion-col> 
-              <button *ngIf="report.Hours==0" ion-button icon-only item-end (click)="editReport(report)" small clear>
-                  <ion-icon name="create" ></ion-icon>
-                </button>  
-                
-          </ion-col>
-          
-        </ion-row> 
-              
-      </ion-grid>
-
-    </ion-card>
-    <ng-template #loading>
-      Loading ...
-    </ng-template>
+   
 
   </div>
 </ion-content>

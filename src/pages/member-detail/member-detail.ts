@@ -40,6 +40,7 @@ export class MemberDetailPage {
     //this.member=navParams.get("member");
 
     this.$key = navParams.get("$key")
+   
 
     //this.groups = 
     this.db.groups.do(val => console.log("group val", val))
@@ -63,7 +64,7 @@ export class MemberDetailPage {
       this.groups = value;
     })
 
-    this.db.getMemberReports(this.$key).subscribe(value=>this.reports=value)
+   
 
   }
 
@@ -117,12 +118,6 @@ export class MemberDetailPage {
     }
   }
 
-  viewReport(report:any)
-  {
-
-    let modal = this.modalCtrl.create(MemberReportPage,{report:report});
-    modal.present();
-
-  }
+ 
 
 }
