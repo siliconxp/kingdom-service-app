@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+
 
 
 /**
@@ -21,9 +23,33 @@ export class MemberReportPage {
   isCancelled:boolean = false;
   isValid:boolean=false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public viewCtrl: ViewController) {
+  placements = new FormControl('')
+  videos = new FormControl('')
+  hours = new FormControl('')
+  rvs = new FormControl('')
+  BiSt = new FormControl('')
+  remarks = new FormControl('')
+  pio = new FormControl('')
+
+  reportForm: FormGroup;
+
+ 
+  
+
+  constructor(public navCtrl: NavController, public navParams: NavParams,public fb: FormBuilder,public viewCtrl: ViewController) {
     this.report=navParams.get('report');
     this.memberKey=navParams.get('memberKey');
+
+    this.reportForm = this.fb.group({
+      placements: this.placements,
+      videos: this.videos,
+      hours: this.hours,
+      rvs: this.rvs,
+      BiSt: this.BiSt,
+      remarks: this.remarks,
+      pio: this.pio    
+    });
+
   }
 
   ionViewDidLoad() {

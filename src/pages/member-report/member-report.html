@@ -19,31 +19,27 @@
     <ion-card-header>
       report for
     </ion-card-header>
-    <form (ngSubmit)="saveForm()">
-      <ion-list no-lines>
-        <ion-item>
-          <ion-label>Month</ion-label>
-          <ion-input type="text" [(ngModel)]="report.month" name="month"></ion-input>
-        </ion-item>
+    <form (ngSubmit)="saveForm()" [formGroup]="reportForm">
+      <ion-list no-lines>      
         <ion-item>
           <ion-label>Placements</ion-label>
-          <ion-input type="text" [(ngModel)]="report.Plcmts" name="Plcmts" text-right></ion-input>
+          <ion-input type="number" [formControl]="placements" text-right></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Video</ion-label>
-          <ion-input type="text" [(ngModel)]="report.Videos" name="Videos" text-right></ion-input>
+          <ion-input type="number" [formControl]="videos" name="Videos" text-right></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Hours</ion-label>
-          <ion-input type="text" [(ngModel)]="report.Hours" name="Hours" text-right></ion-input>
+          <ion-input type="number" [formControl]="hours" name="Hours" text-right></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Return Visits</ion-label>
-          <ion-input type="text" [(ngModel)]="report.RVs" name="RVs" text-right></ion-input>
+          <ion-input type="number" [formControl]="rvs" name="rvs" text-right></ion-input>
         </ion-item>
         <ion-item>
           <ion-label>Bible Studies</ion-label>
-          <ion-input type="text" [(ngModel)]="report.BiSt" name="BiSt" text-right></ion-input>
+          <ion-input type="number" [formControl]="BiSt" name="BiSt" text-right></ion-input>
         </ion-item>
       </ion-list>
       <!-- <button ion-button type="submit" block>Save</button> -->
