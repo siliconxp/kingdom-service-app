@@ -60,15 +60,7 @@
           {{member.lname }}, {{member.fname }}
 
         </ion-item>
-        <ion-item>
-          months
-        </ion-item>
-
-        <ion-item-options>
-          <button ion-button color="primary" (click)="goToMemberDetail(member)">Edit</button>
-          <button ion-button icon-only item-end clear>
-            <ion-icon name="create"></ion-icon>
-          </button>
+        <ion-item item-end>
           <button ion-button color="primary" (click)="goToMemberDetail(member)">JAN</button>
           <button ion-button color="primary" (click)="goToMemberDetail(member)">FEB</button>
           <button ion-button color="primary" (click)="goToMemberDetail(member)">MAR</button>
@@ -79,14 +71,20 @@
           <button ion-button color="primary" (click)="goToMemberDetail(member)">AUG</button>
           <button ion-button color="primary" (click)="goToMemberDetail(member)">SEP</button>
           <button ion-button color="primary" (click)="goToMemberDetail(member)">OCT</button>
+        </ion-item>
+
+        <ion-item-options>
+          <button ion-button color="primary" (click)="goToMemberDetail(member)">Edit</button>
+          <button ion-button icon-only item-end clear>
+            <ion-icon name="create"></ion-icon>
+          </button>
+         
         </ion-item-options>
       </ion-item-sliding>
 
 
     </ion-item-group>
-    <ion-item-sliding>
-
-    </ion-item-sliding>
+   
 
   </ion-list>
   <ion-fab bottom right>
