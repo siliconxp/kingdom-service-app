@@ -42,7 +42,7 @@ export class DataServiceProvider {
 
   groupCollectionRef: AngularFirestoreCollection<any>;
   group$: Observable<any[]>;
-  memberCollectionRef: AngularFirestoreCollection<any>;  
+  memberCollectionRef: AngularFirestoreCollection<any>;
   member$: Observable<any[]>;
 
   private meetingAttendanceRef: AngularFirestoreCollection<any>;
@@ -61,7 +61,7 @@ export class DataServiceProvider {
     this.data.groups = [];
     this.data.members = [];
     this.data.groupMembers = [];
-    this.data.reports={}
+    this.data.reports = {}
 
 
 
@@ -69,7 +69,7 @@ export class DataServiceProvider {
     this.groupCollectionRef = this.afs.collection<any>('domains/1/groups');
 
     this.meetingAttendanceRef = this.afs.collection<any>('domains/1/meeting-attendance');
-    this.meetingAttendanceRef.valueChanges().subscribe(v=>this.meetingAttendace$.next(v))
+    this.meetingAttendanceRef.valueChanges().subscribe(v => this.meetingAttendace$.next(v))
 
 
     this.group$ = this.groupCollectionRef.snapshotChanges().map(actions => {
@@ -111,7 +111,7 @@ export class DataServiceProvider {
 
         //so fb can cache reports
         this.afs.collection<any>(`domains/1/members/${$key}/reports`).valueChanges().subscribe(
-          v=>{this.data.reports[$key]=v;console.log('reports for'+$key)}
+          v => { this.data.reports[$key] = v; console.log('reports for' + $key) }
         )
 
 
@@ -150,7 +150,7 @@ export class DataServiceProvider {
 
     }).subscribe(
       m => this._members.next(m)
-      )
+    )
 
 
 
@@ -523,37 +523,24 @@ export class DataServiceProvider {
   }
 
 
-  saveReport(memberKey:string,period:string,data:any)
-  {
-    let reportCol = this.afs.collection(`domains/1/members/${memberKey}/reports`);
-
-        const doc = reportCol.doc(period).snapshotChanges().take(1).toPromise()
-console.log("saving ..",memberKey,period,data)
-
-        //return reportCol.doc(period).set(data,{merge:true})
-       //return this.afs.doc(`domains/1/members/${memberKey}/reports/${period}`).set(data,{merge:true})
-
-      return doc.then(snap => {
-          return snap.payload.exists ? 
-          this.afs.doc(`domains/1/members/${memberKey}/reports/${period}`).update(data) : 
-          this.afs.doc(`domains/1/members/${memberKey}/reports/${period}`).set(data)
-        })  
-
-
+  saveReport(memberKey: string, period: string, data: any) {
+    console.log("saving ..", memberKey, period, data)
+    const ref = `domains/1/members/${memberKey}/reports/${period}`;
+    return this.upsert(ref, data)
 
 
   }
 
 
 
-  /*
+
   update<T>(ref: DocPredicate<T>, data: any) {
     return this.doc(ref).update({
       ...data,
       updatedAt: this.timestamp
     })
   }
-  
+
   set<T>(ref: DocPredicate<T>, data: any) {
     const timestamp = this.timestamp
     return this.doc(ref).set({
@@ -562,7 +549,7 @@ console.log("saving ..",memberKey,period,data)
       createdAt: timestamp
     })
   }
-  
+
   add<T>(ref: CollectionPredicate<T>, data) {
     const timestamp = this.timestamp
     return this.col(ref).add({
@@ -571,14 +558,39 @@ console.log("saving ..",memberKey,period,data)
       createdAt: timestamp
     })
   }
-  
+
   upsert<T>(ref: DocPredicate<T>, data: any) {
     const doc = this.doc(ref).snapshotChanges().take(1).toPromise()
-  
+
     return doc.then(snap => {
       return snap.payload.exists ? this.update(ref, data) : this.set(ref, data)
     })
-  }*/
+  }
+
+
+  // return a reference
+
+  col<T>(ref: CollectionPredicate<T>, queryFn?): AngularFirestoreCollection<T> {
+    return typeof ref === 'string' ? this.afs.collection<T>(ref, queryFn) : ref;
+  }
+
+  doc<T>(ref: DocPredicate<T>): AngularFirestoreDocument<T> {
+    return typeof ref === 'string' ? this.afs.doc<T>(ref) : ref;
+  }
+
+  // return an observable
+
+  doc$<T>(ref: DocPredicate<T>): Observable<T> {
+    return this.doc(ref).snapshotChanges().map(doc => {
+      return doc.payload.data() as T;
+    });
+  }
+
+  col$<T>(ref: CollectionPredicate<T>, queryFn?): Observable<T[]> {
+    return this.col(ref, queryFn).snapshotChanges().map(docs => {
+      return docs.map(a => a.payload.doc.data()) as T[];
+    });
+  }
 
 
 }
@@ -587,77 +599,77 @@ console.log("saving ..",memberKey,period,data)
 
 @Injectable()
 export class MemberData {
-    // db is plan firestore / no angularfire
-    db: firebase.firestore.Firestore
+  // db is plan firestore / no angularfire
+  db: firebase.firestore.Firestore
 
-    constructor(private readonly afs: AngularFirestore){
+  constructor(private readonly afs: AngularFirestore) {
 
-      console.log('init fb')
+    console.log('init fb')
 
-   
 
-     /*  firebase.initializeApp(firebaseConfig);
-      
-      firebase.firestore().enablePersistence()
-        .then(function() {
-            // Initialize Cloud Firestore through firebase
-            this.db = firebase.firestore();
-            console.log('inited fb')
+
+    /*  firebase.initializeApp(firebaseConfig);
+     
+     firebase.firestore().enablePersistence()
+       .then(function() {
+           // Initialize Cloud Firestore through firebase
+           this.db = firebase.firestore();
+           console.log('inited fb')
+       })
+       .catch(function(err) {
+           if (err.code == 'failed-precondition') {
+               // Multiple tabs open, persistence can only be enabled
+               // in one tab at a a time.
+               // ...
+           } else if (err.code == 'unimplemented') {
+               // The current browser does not support all of the
+               // features required to enable persistence
+               // ...
+           }
+       }); */
+
+  }
+
+
+  loadMembers() {
+
+    console.log('calling load fb')
+
+    this.db = firebase.firestore();
+
+    const memberRef = this.db.collection('domains/1/members');
+    return this.observeCollection(memberRef).
+      map(members => {
+        return members.map(member => {
+          return {
+            member,
+            reports$: this.observeCollection(member.ref.collection('reports'))
+          };
         })
-        .catch(function(err) {
-            if (err.code == 'failed-precondition') {
-                // Multiple tabs open, persistence can only be enabled
-                // in one tab at a a time.
-                // ...
-            } else if (err.code == 'unimplemented') {
-                // The current browser does not support all of the
-                // features required to enable persistence
-                // ...
-            }
-        }); */
+      });
+  }
 
-    }
+  // Takes a reference and returns an array of documents
+  // with the id and reference
+  private observeCollection(ref) {
+    return Observable.create((observer) => {
+      const unsubscribeFn = ref.onSnapshot(
+        snapshot => {
+          observer.next(snapshot.docs.map(doc => {
+            const data = doc.data();
+            console.log(doc.ref)
+            return {
+              ...doc.data(),
+              id: doc.id,
+              ref: doc.ref
+            };
+          }));
+        },
+        error => observer.error(error),
+      );
 
-
-    loadMembers() {
-
-      console.log('calling load fb')
-
-      this.db = firebase.firestore();
-      
-        const memberRef = this.db.collection('domains/1/members');
-        return this.observeCollection(memberRef).
-            map(members => {
-                return members.map(member => {
-                    return {
-                        member,
-                        reports$: this.observeCollection(member.ref.collection('reports'))
-                    };
-                })
-            });
-    }
-
-    // Takes a reference and returns an array of documents
-    // with the id and reference
-    private observeCollection(ref) {
-        return Observable.create((observer) => {
-            const unsubscribeFn = ref.onSnapshot(
-                snapshot => {
-                    observer.next(snapshot.docs.map(doc => {
-                        const data = doc.data();
-                        console.log(doc.ref)
-                        return {
-                            ...doc.data(),
-                            id: doc.id,
-                            ref: doc.ref
-                        };
-                    }));
-                },
-                error => observer.error(error),
-            );
-
-            return unsubscribeFn;
-        });
-    }
+      return unsubscribeFn;
+    });
+  }
 }
 
