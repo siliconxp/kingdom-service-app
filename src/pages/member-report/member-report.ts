@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 
 
@@ -19,73 +19,82 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 export class MemberReportPage {
 
   report: any
-  memberKey:any
-  isCancelled:boolean = false;
-  isValid:boolean=false;
+  memberKey: any
+  isCancelled: boolean = false;
+  isValid: boolean = false;
 
-  placements = new FormControl('')
-  videos = new FormControl('')
-  hours = new FormControl('',Validators.required)
-  rvs = new FormControl('')
+  Plcmts = new FormControl('')
+  Videos = new FormControl('')
+  Hours = new FormControl('', Validators.required)
+  RVs = new FormControl('')
   BiSt = new FormControl('')
   remarks = new FormControl('')
   pio = new FormControl('')
 
-  reportForm: FormGroup= this.fb.group({
-    placements: this.placements,
-    videos: this.videos,
-    hours: this.hours,
-    rvs: this.rvs,
+  reportForm: FormGroup = this.fb.group({
+    Plcmts: this.Plcmts,
+    Videos: this.Videos,
+    Hours: this.Hours,
+    RVs: this.RVs,
     BiSt: this.BiSt,
     remarks: this.remarks,
-    pio: this.pio    
+    pio: this.pio
   });
 
- 
-  
-
-  constructor(public navCtrl: NavController, public navParams: NavParams,public fb: FormBuilder,public viewCtrl: ViewController) {
-    this.report=navParams.get('report');
-    this.memberKey=navParams.get('memberKey');
 
 
-    this.hours.valueChanges.subscribe(
-      h=>{
-        if(h>0)        
-        this.isValid = true
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController) {
+    this.report = navParams.get('report');
+    this.memberKey = navParams.get('memberKey');
+
+
+
+
+    this.Hours.valueChanges.subscribe(
+      h => {
+        if (h > 0)
+          this.isValid = true
         else
-        this.isValid=false
+          this.isValid = false
       }
     )
 
-    
+
+
+  }
+
+  resetForm() {
+
+    this.reportForm.patchValue(this.report)
 
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad MemberReportPage');
+    this.resetForm()
   }
 
   saveForm() {
 
-   
+
     this.viewCtrl.dismiss(this.report);
 
   }
 
   closeForm() {
-    this.isCancelled=true;
+    this.resetForm()
+    this.isCancelled = true;
     this.viewCtrl.dismiss();
   }
 
-  ionViewCanLeave(): boolean{
+  ionViewCanLeave(): boolean {
     // here we can either return true or false
     // depending on if we want to leave this view
-    if(this.isValid || this.isCancelled){
-       return true;
-     } else {
-       return false;
-     }
-   }
+    if (this.isValid || this.isCancelled) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
 }
