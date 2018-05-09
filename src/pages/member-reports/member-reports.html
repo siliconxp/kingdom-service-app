@@ -1,0 +1,78 @@
+<!--
+  Generated template for the MemberReportsPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{fname}} {{lname}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card >
+    <ion-card-header>
+      {{fname}} {{lname}}
+    </ion-card-header>
+    <ion-grid *ngIf="reports; else loading; let reports">
+        <ion-row >
+            <ion-col>
+              month        
+            </ion-col>
+            <ion-col> 
+                plcmts  
+            </ion-col>
+            <ion-col> 
+                videos          
+            </ion-col>
+            <ion-col> 
+                hours   
+            </ion-col>
+            <ion-col> 
+                rvs  
+            </ion-col>
+            <ion-col> 
+                studies   
+            </ion-col>
+            <ion-col>                      
+            </ion-col>
+          </ion-row>
+      <ion-row *ngFor="let report of reports" >
+        <ion-col>
+          {{report.month}}          
+        </ion-col>
+        <ion-col> 
+            {{report.Plcmts|nozero}}   
+        </ion-col>
+        <ion-col> 
+            {{report.Videos|nozero}}           
+        </ion-col>
+        <ion-col> 
+            {{report.Hours|nozero}}    
+        </ion-col>
+        <ion-col> 
+            {{report.RVs|nozero}}    
+        </ion-col>
+        <ion-col> 
+            {{report.BiSt|nozero}}    
+        </ion-col>
+        <ion-col> 
+            <button ion-button icon-only item-end (click)="editReport(report)" small clear>
+                <ion-icon name="create" ></ion-icon>
+              </button>  
+              
+        </ion-col>
+        
+      </ion-row> 
+            
+    </ion-grid>
+
+  </ion-card>
+  <ng-template #loading>
+    Loading ...
+  </ng-template>
+</ion-content>
