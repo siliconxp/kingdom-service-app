@@ -523,6 +523,28 @@ export class DataServiceProvider {
   }
 
 
+  saveReport(memberKey:string,period:string,data:any)
+  {
+    let reportCol = this.afs.collection(`domains/1/members/${memberKey}/reports`);
+
+        const doc = reportCol.doc(period).snapshotChanges().take(1).toPromise()
+console.log("saving ..",memberKey,period,data)
+
+        //return reportCol.doc(period).set(data,{merge:true})
+       //return this.afs.doc(`domains/1/members/${memberKey}/reports/${period}`).set(data,{merge:true})
+
+      return doc.then(snap => {
+          return snap.payload.exists ? 
+          this.afs.doc(`domains/1/members/${memberKey}/reports/${period}`).update(data) : 
+          this.afs.doc(`domains/1/members/${memberKey}/reports/${period}`).set(data)
+        })  
+
+
+
+
+  }
+
+
 
   /*
   update<T>(ref: DocPredicate<T>, data: any) {

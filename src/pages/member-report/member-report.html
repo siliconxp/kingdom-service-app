@@ -17,10 +17,10 @@
 
   <ion-card *ngIf="report">
     <ion-card-header>
-      report for
+     {{report.month}} {{report.year}} Report
     </ion-card-header>
     <form (ngSubmit)="saveForm()" [formGroup]="reportForm">
-      <ion-list no-lines>      
+      <ion-list no-lines>
         <ion-item>
           <ion-label>Placements</ion-label>
           <ion-input type="number" [formControl]="Plcmts" text-right></ion-input>
@@ -31,7 +31,7 @@
         </ion-item>
         <ion-item>
           <ion-label>Hours</ion-label>
-          <ion-input type="number" [formControl]="Hours" name="Hours" text-right></ion-input>
+          <ion-input type="number" [formControl]="Hours" name="Hours" text-right></ion-input>          
         </ion-item>
         <ion-item>
           <ion-label>Return Visits</ion-label>
