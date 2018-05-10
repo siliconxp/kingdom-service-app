@@ -25,6 +25,7 @@ export class MeetingAttendancePage {
 
   editAttendance(a:any){
 
+
     let prompt = this.alertCtrl.create({
       title: 'Report',
       message: "Update Attendance Figures",
@@ -32,19 +33,22 @@ export class MeetingAttendancePage {
         {
           name: 'midweek',
           placeholder: 'Midweek',
-          type:'number'
+          type:'number',
+          value:a.midweek
         },
         {
           name: 'weekend',
           placeholder: 'Weekend',
-          type:'number'
+          type:'number',
+          value:a.weekend
         },
       ],
       buttons: [
         {
           text: 'Cancel',
           handler: data => {
-            console.log('Cancel clicked');
+            console.log('saving...',a,data);
+            this.db.saveAttendance(a.id,data)
           }
         },
         {

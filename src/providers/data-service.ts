@@ -528,6 +528,12 @@ export class DataServiceProvider {
     const ref = `domains/1/members/${memberKey}/reports/${period}`;
     return this.upsert(ref, data)
 
+  }
+
+  saveAttendance($key: string, data: any) {
+    console.log("saving .... ..",$key, data)
+    const ref = `domains/1/meeting-attendance/${$key}`;
+    return this.upsert(ref, data)
 
   }
 
