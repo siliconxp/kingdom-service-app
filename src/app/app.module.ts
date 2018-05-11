@@ -27,6 +27,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { DataServiceProvider, MemberData } from '../providers/data-service';
+import { AuthProvider } from '../providers/auth/auth';
 
 
 @NgModule({
@@ -48,6 +49,7 @@ import { DataServiceProvider, MemberData } from '../providers/data-service';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule.enablePersistence(),
+    AngularFireAuthModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -66,7 +68,8 @@ import { DataServiceProvider, MemberData } from '../providers/data-service';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    DataServiceProvider, MemberData
+    DataServiceProvider, MemberData,
+    AuthProvider
   ]
 })
 export class AppModule { }

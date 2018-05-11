@@ -1,4 +1,8 @@
 import { Component } from '@angular/core';
+
+import { AngularFireAuth } from 'angularfire2/auth';
+import * as firebase from 'firebase/app';
+
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 
@@ -19,11 +23,11 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginPage {
 
-  login = { username: '', password: '' };
+  loginData = { username: '', password: '' };
 
   submitted = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth) {
   }
 
   ionViewDidLoad() {
@@ -57,6 +61,13 @@ export class LoginPage {
 
     this.navCtrl.push(SignupPage);
 
+  }
+
+  login() {
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+  logout() {
+    this.afAuth.auth.signOut();
   }
 
 }

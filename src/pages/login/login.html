@@ -10,7 +10,7 @@
 <ion-content padding>
   <button ion-button full (click)="doLogin()">Login</button>
   <p>
-    Update No. 9.61
+    Update No. 9.62
   </p>
   <form #loginForm="ngForm" novalidate>
 
@@ -20,7 +20,7 @@
 
 				<ion-label stacked color="primary">Username</ion-label>
 
-				<ion-input [(ngModel)]="login.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off"
+				<ion-input [(ngModel)]="loginData.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off"
 
 					required>
 
@@ -40,7 +40,7 @@
 
 				<ion-label stacked color="primary">Password</ion-label>
 
-				<ion-input [(ngModel)]="login.password" name="password" type="password" #password="ngModel" required>
+				<ion-input [(ngModel)]="loginData.password" name="password" type="password" #password="ngModel" required>
 
 				</ion-input>
 
@@ -72,6 +72,15 @@
 
 		</ion-row>
 
-  </form>
+	</form>
+	
+	<div *ngIf="afAuth.authState | async as user; else showLogin">
+		<h1>Hello {{ user.displayName }}!</h1>
+		<button (click)="logout()">Logout</button>
+	</div>
+	<ng-template #showLogin>
+		<p>Please login.</p>
+		<button (click)="login()">Login with Google</button>
+	</ng-template>
 
 </ion-content>
