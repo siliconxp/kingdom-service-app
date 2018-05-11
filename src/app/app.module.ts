@@ -11,6 +11,8 @@ import { MemberReportPage } from '../pages/member-report/member-report';
 import { MemberReportsPage } from '../pages/member-reports/member-reports';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
+import { SignupPage } from '../pages/signup/signup';
+
 import { MeetingAttendancePage } from '../pages/meeting-attendance/meeting-attendance';
 
 import { SearchPipe } from '../pipes/search/search';
@@ -26,6 +28,8 @@ import { firebaseConfig } from '../environment';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AngularFireAuth } from 'angularfire2/auth';
+
 import { DataServiceProvider, MemberData } from '../providers/data-service';
 import { AuthProvider } from '../providers/auth/auth';
 
@@ -42,6 +46,7 @@ import { AuthProvider } from '../providers/auth/auth';
     MemberReportPage,
     MemberReportsPage,
     MeetingAttendancePage,
+    SignupPage,
     SearchPipe, NozeroPipe
   ],
   imports: [
@@ -62,14 +67,15 @@ import { AuthProvider } from '../providers/auth/auth';
     MemberReportPage,
     MemberReportsPage,    
     MemberDetailPage,
-    MeetingAttendancePage
+    MeetingAttendancePage,
+    SignupPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     DataServiceProvider, MemberData,
-    AuthProvider
+    AuthProvider,AngularFireAuth
   ]
 })
 export class AppModule { }

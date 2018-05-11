@@ -537,6 +537,13 @@ export class DataServiceProvider {
 
   }
 
+  saveUser($key: string, data: any) {
+    console.log("saving .... ..",$key, data)
+    const ref = `domains/1/users/${$key}`;
+    return this.upsert(ref, data)
+
+  }
+
 
 
 

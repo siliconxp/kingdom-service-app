@@ -2,13 +2,17 @@ import { Component } from '@angular/core';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import { AuthProvider } from '../../providers/auth/auth';
 
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage,AlertController,LoadingController, NavController, NavParams,Loading } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 
 import { TabsPage } from '../tabs/tabs';
 
 import { NgForm } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+
+import { EmailValidator } from '../../validators/validators';
 
 
 //import { UserOptions } from '../../interfaces/user-options';
@@ -24,10 +28,29 @@ import { NgForm } from '@angular/forms';
 export class LoginPage {
 
   loginData = { username: '', password: '' };
+  loginError:any;
 
   submitted = false;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public afAuth: AngularFireAuth) {
+public loginForm: FormGroup;
+public loading: Loading;
+
+  constructor(
+    public navCtrl: NavController, 
+    public loadingCtrl: LoadingController,
+  public alertCtrl: AlertController,
+    public navParams: NavParams,
+    public fb: FormBuilder,
+    public afAuth: AngularFireAuth,
+    public authProvider:AuthProvider) {
+
+
+      this.loginForm = fb.group({
+        email: ['',
+        Validators.compose([Validators.required, EmailValidator])],
+        password: ['',
+        Validators.compose([Validators.minLength(6), Validators.required])]
+      });
   }
 
   ionViewDidLoad() {
@@ -47,9 +70,22 @@ export class LoginPage {
 
     if (form.valid) {
 
-      //this.userData.login(this.login.username);
+      this.authProvider.loginUser(this.loginData.username, this.loginData.password)
+      .then(
+				() => this.navCtrl.setRoot(TabsPage),
+				error => this.loginError = error.message
+)
 
-      this.navCtrl.push(TabsPage);
+.then(value => {
+  console.log('Nice, it worked!');
+})
+.catch(err => {
+  console.log('Something went wrong:', err.message);
+});
+
+      this.loginData = { username: '', password: '' };
+
+     // this.navCtrl.push(TabsPage);
 
     }
 
@@ -63,11 +99,49 @@ export class LoginPage {
 
   }
 
-  login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+
+  goToSignup(): void {
+    this.navCtrl.push(SignupPage);
+  }
+  
+  goToResetPassword(): void {
+    this.navCtrl.push('ResetPasswordPage');
+  }
+
+  loginWithGoogle() {
+    this.authProvider.loginWithGoogle()
   }
   logout() {
-    this.afAuth.auth.signOut();
+    this.authProvider.logout()
+  }
+
+  loginUser(): void {
+    if (!this.loginForm.valid){
+      console.log(this.loginForm.value);
+    } else {
+      this.authProvider.loginUser(this.loginForm.value.email,
+        this.loginForm.value.password)
+      .then( authData => {
+        this.loading.dismiss().then( () => {
+          this.navCtrl.setRoot(TabsPage);
+        });
+      }, error => {
+        this.loading.dismiss().then( () => {
+          let alert = this.alertCtrl.create({
+            message: error.message,
+            buttons: [
+              {
+                text: "Ok",
+                role: 'cancel'
+              }
+            ]
+          });
+          alert.present();
+        });
+      });
+      this.loading = this.loadingCtrl.create();
+      this.loading.present();
+    }
   }
 
 }

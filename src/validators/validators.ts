@@ -11,3 +11,20 @@ export function ValidateNoZero(control: AbstractControl) {
     }
     return null;
 }
+
+export function EmailValidator(control: AbstractControl) {
+    
+    
+      const re = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/.test(
+        control.value
+      );
+  
+      if (re) {
+        return null;
+      }
+  
+      return {
+        invalidEmail: true,
+      };
+    
+  }

@@ -11,76 +11,71 @@
   <button ion-button full (click)="doLogin()">Login</button>
   <p>
     Update No. 9.62
-  </p>
-  <form #loginForm="ngForm" novalidate>
+	</p>
+	
 
-		<ion-list no-lines>
-
+		<form [formGroup]="loginForm" (submit)="loginUser()" novalidate>
+	
 			<ion-item>
-
-				<ion-label stacked color="primary">Username</ion-label>
-
-				<ion-input [(ngModel)]="loginData.username" name="username" type="text" #username="ngModel" spellcheck="false" autocapitalize="off"
-
-					required>
-
-				</ion-input>
-
+				<ion-label stacked>Email</ion-label>
+				<ion-input formControlName="email" type="email" placeholder="Your email address"
+					[class.invalid]="!loginForm.controls.email.valid && blur"></ion-input>
 			</ion-item>
-
-			<p ion-text [hidden]="username.valid || submitted == false" color="danger" padding-left>
-
-				Username is required
-
-			</p>
-
-
-
+	
 			<ion-item>
-
-				<ion-label stacked color="primary">Password</ion-label>
-
-				<ion-input [(ngModel)]="loginData.password" name="password" type="password" #password="ngModel" required>
-
-				</ion-input>
-
+				<ion-label stacked>Password</ion-label>
+				<ion-input formControlName="password" type="password" placeholder="Your password"
+					[class.invalid]="!loginForm.controls.password.valid && blur"></ion-input>
 			</ion-item>
+	
+		
 
-			<p ion-text [hidden]="password.valid || submitted == false" color="danger" padding-left>
+			<ion-row responsive-sm>
 
-				Password is required
+				<ion-col>
+	
+					<button ion-button block type="submit" [disabled]="!loginForm.valid">
+						Login
+					</button>
+	
+				</ion-col>
+	
+				<ion-col>
+	
+					<button ion-button (click)="goToSignup()" color="light" block>Create a new account</button>
+	
+				</ion-col>
+	
+			</ion-row>
+			<ion-row>
+				<ion-col>	<button ion-button block clear (click)="loginWithGoogle()">Login with Google</button></ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col><button ion-button block clear (click)="goToResetPassword()">
+					I forgot my password
+				</button></ion-col>
+			</ion-row>
 
-			</p>
 
-		</ion-list>
+		</form>
+	
+	
+	
+		
+	
 
 
 
-		<ion-row responsive-sm>
 
-			<ion-col>
-
-				<button ion-button (click)="onLogin(loginForm)" type="submit" block>Login</button>
-
-			</ion-col>
-
-			<ion-col>
-
-				<button ion-button (click)="onSignup()" color="light" block>Signup</button>
-
-			</ion-col>
-
-		</ion-row>
-
-	</form>
+ 
 	
 	<div *ngIf="afAuth.authState | async as user; else showLogin">
 		<h1>Hello {{ user.displayName }}!</h1>
 		<button (click)="logout()">Logout</button>
 	</div>
 	<ng-template #showLogin>
-		<p>Please login.</p>
-		<button (click)="login()">Login with Google</button>
+		<p>Not Logged in.</p>
+		
 	</ng-template>
 
 </ion-content>
