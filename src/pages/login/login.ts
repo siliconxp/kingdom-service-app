@@ -18,7 +18,7 @@ import { EmailValidator } from '../../validators/validators';
 //import { UserOptions } from '../../interfaces/user-options';
 
 
-
+//https://f3gtq.app.goo.gl/Zi7X 
 
 @IonicPage()
 @Component({
@@ -109,7 +109,7 @@ public loading: Loading;
   }
 
   loginWithGoogle() {
-    this.authProvider.loginWithGoogle()
+    this.authProvider.googleLogin()
   }
   logout() {
     this.authProvider.logout()

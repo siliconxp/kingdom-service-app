@@ -38,6 +38,25 @@ export class AuthProvider {
   loginWithGoogle() {
     firebase.auth().signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
+
+  googleLogin():void {
+    const provider = new firebase.auth.GoogleAuthProvider();
+  
+    firebase.auth().signInWithRedirect(provider).then( () => {
+      firebase.auth().getRedirectResult().then( result => {
+        // This gives you a Google Access Token.
+        // You can use it to access the Google API.
+        var token = result.credential.accessToken;
+        // The signed-in user info.
+        var user = result.user;
+        console.log(token, user);
+      }).catch(function(error) {
+        // Handle Errors here.
+        console.log(error.message);
+      });
+    });
+  }
+
   loginUser(email: string, password: string): Promise<any> {
     return firebase.auth().signInWithEmailAndPassword(email, password);
   }
