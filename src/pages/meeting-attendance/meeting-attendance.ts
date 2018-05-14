@@ -23,20 +23,16 @@ export class MeetingAttendancePage {
     console.log('ionViewDidLoad MeetingAttendancePage');
   }
 
-  editAttendance(a:any){
+  editWeekend(a:any){
 
 
     let prompt = this.alertCtrl.create({
-      title: 'Report',
+      title: 'Weekend Meeting',
       message: "Update Attendance Figures",
       inputs: [
+        
         {
-          name: 'midweek',
-          placeholder: 'Midweek',
-          type:'number',
-          value:a.midweek
-        },
-        {
+          label: 'Weekend',
           name: 'weekend',
           placeholder: 'Weekend',
           type:'number',
@@ -47,19 +43,50 @@ export class MeetingAttendancePage {
         {
           text: 'Cancel',
           handler: data => {
-            console.log('saving...',a,data);
-            this.db.saveAttendance(a.id,data)
+           
           }
         },
         {
           text: 'Save',
           handler: data => {
-            //const newSongRef = this.songs.push({});
-   
-            //newSongRef.set({
-           //   id: newSongRef.key
-          //    title: data.title
-           // });
+            console.log('saving...',a,data);
+            this.db.saveAttendance(a.id,data)
+          }
+        }
+      ]
+    });
+    prompt.present();
+
+  }
+
+  editMidweek(a:any){
+
+
+    let prompt = this.alertCtrl.create({
+      title: 'Weekend Meeting',
+      message: "Update Attendance Figures",
+      inputs: [
+        {
+          label: 'Midweek',
+          name: 'midweek',
+          placeholder: 'Midweek',
+          type:'number',
+          value:a.midweek
+        },
+       
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+           
+          }
+        },
+        {
+          text: 'Save',
+          handler: data => {
+            console.log('saving...',a,data);
+            this.db.saveAttendance(a.id,data)
           }
         }
       ]
