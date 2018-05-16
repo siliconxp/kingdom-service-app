@@ -27,7 +27,7 @@
   
     <ion-item *ngFor="let a of db.attendance | async" >     
                
-       <ion-row>
+       <ion-row (click)="editMonthAttendance(a)">
          <ion-col text-center> {{a.weekstarting|date}}  </ion-col>
        </ion-row>
        <ion-row>

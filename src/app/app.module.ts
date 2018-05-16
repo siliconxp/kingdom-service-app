@@ -14,6 +14,8 @@ import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 
 import { MeetingAttendancePage } from '../pages/meeting-attendance/meeting-attendance';
+import { AttendanceDetailsPage } from '../pages/attendance-details/attendance-details';
+
 
 import { SearchPipe } from '../pipes/search/search';
 import { NozeroPipe } from '../pipes/nozero/nozero';
@@ -46,6 +48,7 @@ import { AuthProvider } from '../providers/auth/auth';
     MemberReportPage,
     MemberReportsPage,
     MeetingAttendancePage,
+    AttendanceDetailsPage,
     SignupPage,
     SearchPipe, NozeroPipe
   ],
@@ -68,6 +71,7 @@ import { AuthProvider } from '../providers/auth/auth';
     MemberReportsPage,    
     MemberDetailPage,
     MeetingAttendancePage,
+    AttendanceDetailsPage,
     SignupPage
   ],
   providers: [

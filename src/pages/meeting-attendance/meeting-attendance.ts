@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController  } from 'ionic-angular';
 import { DataServiceProvider } from '../../providers/data-service';
 
+import { AttendanceDetailsPage } from '../attendance-details/attendance-details';
+
 /**
  * Generated class for the MeetingAttendancePage page.
  *
@@ -21,6 +23,11 @@ export class MeetingAttendancePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad MeetingAttendancePage');
+  }
+
+  editMonthAttendance(a:any)
+  {
+    this.navCtrl.push(AttendanceDetailsPage)
   }
 
   editWeekend(a:any){
