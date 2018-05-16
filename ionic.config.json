@@ -1,8 +1,6 @@
 {
   "name": "kingdom-service-app",
   "app_id": "bd42bd35",
-  "type": "ionic-angular",
-  "integrations": {
-    "cordova": {}
-  }
+  "type": "ionic-angular"
+
 }

@@ -65,9 +65,6 @@ public loading: Loading;
   onLogin(form: NgForm) {
 
     this.submitted = true;
-
-
-
     if (form.valid) {
 
       this.authProvider.loginUser(this.loginData.username, this.loginData.password)
@@ -77,7 +74,7 @@ public loading: Loading;
 )
 
 .then(value => {
-  console.log('Nice, it worked!');
+  console.log('Nice, it worked!###');
 })
 .catch(err => {
   console.log('Something went wrong:', err.message);

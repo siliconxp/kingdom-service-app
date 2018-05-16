@@ -1,0 +1,6 @@
+{
+  "appId": "zm.co.me.kh",
+  "appName": "KH App",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}
