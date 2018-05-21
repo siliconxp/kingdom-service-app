@@ -2,10 +2,9 @@
 
 dependencies {
 
-    implementation "com.android.support:customtabs:23.3.0"
+    implementation "com.android.support:customtabs:27.1.1"
 }
 apply from: "../../node_modules/cordova-plugin-browsertab/src/android/BrowserTab.gradle"
-apply from: "../../node_modules/cordova-plugin-buildinfo/src/android/BuildInfo.gradle"
 
 if (hasProperty('postBuildExtras')) {
   postBuildExtras()

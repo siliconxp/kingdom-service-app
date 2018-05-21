@@ -2,5 +2,7 @@
   "appId": "zm.co.me.kh",
   "appName": "KH App",
   "bundledWebRuntime": false,
-  "webDir": "www"
+  "webDir": "www",
+  "windowsAndroidStudioPath": "C:\\dev\\tools\\studio\\bin\\studio64.exe"
+  
 }

@@ -10,14 +10,6 @@
         ]
       },
       {
-        "id": "cordova-plugin-buildinfo.BuildInfo",
-        "file": "plugins/cordova-plugin-buildinfo/www/buildinfo.js",
-        "pluginId": "cordova-plugin-buildinfo",
-        "clobbers": [
-          "BuildInfo"
-        ]
-      },
-      {
         "id": "cordova-plugin-customurlscheme.LaunchMyApp",
         "file": "plugins/cordova-plugin-customurlscheme/www/android/LaunchMyApp.js",
         "pluginId": "cordova-plugin-customurlscheme",
@@ -63,7 +55,6 @@
     // TOP OF METADATA
     {
       "cordova-plugin-browsertab": "0.2.0",
-      "cordova-plugin-buildinfo": "2.0.1",
       "cordova-plugin-compat": "1.2.0",
       "cordova-plugin-customurlscheme": "4.3.0",
       "cordova-plugin-device": "1.1.7",
