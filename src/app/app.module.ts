@@ -32,7 +32,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireAuth } from 'angularfire2/auth';
 
-import { DataServiceProvider, MemberData } from '../providers/data-service';
+import { DataServiceProvider } from '../providers/data-service';
 import { AuthProvider } from '../providers/auth/auth';
 
 
@@ -78,7 +78,7 @@ import { AuthProvider } from '../providers/auth/auth';
     StatusBar,
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
-    DataServiceProvider, MemberData,
+    DataServiceProvider, 
     AuthProvider,AngularFireAuth
   ]
 })

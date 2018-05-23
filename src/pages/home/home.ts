@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { DataServiceProvider,MemberData } from '../../providers/data-service';
+import { DataServiceProvider } from '../../providers/data-service';
 import { combineLatest } from 'rxjs/operator/combineLatest';
 
 

@@ -34,22 +34,22 @@
   <div>
     <form [formGroup]="memberForm" (ngSubmit)="onFormSubmit()">
 
-      <ion-grid responsive-sm>
-        <ion-row>
-          <ion-col col-12 col-sm>
+      <ion-grid fixed>
+        <ion-row  align-items-stretch>
+          <ion-col col-12 col-sm  col-md-3 align-self-stretch align-self-center>
             <ion-item>
               <ion-label>First Name</ion-label>
               <ion-input formControlName="fname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.fname.valid && (memberForm.controls.fname.dirty || submitAttempt)"
                 ></ion-input>
             </ion-item>
           </ion-col>
-          <ion-col col-12 col-sm>
+          <ion-col col-12 col-sm  col-md-3 align-self-stretch align-self-center>
             <ion-item>
               <ion-label>Last Name</ion-label>
               <ion-input formControlName="lname" type="text" [readonly]="!edit" [class.invalid]="!memberForm.controls.lname.valid && (memberForm.controls.lname.dirty || submitAttempt)"></ion-input>
             </ion-item>
           </ion-col>
-          <ion-col col-12 col-sm>
+          <ion-col col-12 col-sm  col-md-3 align-self-stretch align-self-center>
             <ion-item>
               <ion-label>Gender</ion-label>
               <ion-select formControlName="gender" [disabled]="!edit">
@@ -59,7 +59,7 @@
               </ion-select>
             </ion-item>
           </ion-col>
-          <ion-col col-12 col-sm>
+          <ion-col col-12 col-sm  col-md-3 align-self-stretch align-self-center>
             <ion-item>
               <ion-label>Group</ion-label>
               <ion-select formControlName="group" multiple="false" [disabled]="!edit">
