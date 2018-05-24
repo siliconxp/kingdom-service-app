@@ -24,42 +24,18 @@
 
 <ion-content padding>
   <ion-list>
-
-    <ion-item *ngFor="let a of db.attendance | async">
-
-      <ion-row (click)="editMonthAttendance(a)">
-        <ion-col text-center> {{a.weekstarting|date}} </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col text-center>
-          <button (click)="editMidweek(a)" ion-button block clear>Mid Week: {{a.midweek}}</button>
-        </ion-col>
-        <ion-col text-center>
-          <button (click)="editWeekend(a)" ion-button block clear>weekend : {{a.weekend}}</button>
-        </ion-col>
-      </ion-row>
-    </ion-item>
-
-    <ion-item *ngFor="let p of periods">
-      {{p.startDate|date}}
-    </ion-item>
-
     <ion-item *ngFor="let a of attendance">
-
-      <ion-row (click)="editMonthAttendance(a)">
-        <ion-col text-center> {{a.weekstarting|date}} </ion-col>
-      </ion-row>
       <ion-row>
-        <ion-col text-center>
-          <button (click)="editMidweek(a)" ion-button block clear>Mid Week: {{a.midweek}}</button>
+        <ion-col text-center > {{a.weekstarting|date}} </ion-col>      
+        <ion-col >
+          <button (click)="editMidweek(a)" ion-button  outline>Mid Week: {{a.midweek}}</button>
         </ion-col>
-        <ion-col text-center>
-          <button (click)="editWeekend(a)" ion-button block clear>weekend : {{a.weekend}}</button>
+        <ion-col>
+          <button (click)="editWeekend(a)" ion-button outline >weekend : {{a.weekend}}</button>
+         
         </ion-col>
       </ion-row>
     </ion-item>
-
-
   </ion-list>
 
 </ion-content>

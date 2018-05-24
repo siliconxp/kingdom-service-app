@@ -18,8 +18,9 @@ import { AttendanceDetailsPage } from '../attendance-details/attendance-details'
 })
 export class MeetingAttendancePage {
 
-  periods: any;
-  attendance: any;
+  periods: any=[];
+  attendance: any=[];
+  attendanceRaw: any=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public db: DataServiceProvider) {
 
@@ -27,46 +28,51 @@ export class MeetingAttendancePage {
 
       console.log("periods:" + p.length);
       this.periods = db.clone(p);
+      this.loadAttendance()
+    })
 
+    db.attendance.subscribe(a => {
 
-      /* 
-            this.periods= this.periods.map(t=>{
-              return{
-                id:t.id,date:t.startDate.toDate()
-              }
-            } 
-            )*/
+      console.log("attendance:" + a.length);
+      this.attendanceRaw = db.clone(a);
+      this.loadAttendance()
+    })
 
+  }
 
-      this.attendance = []
+  loadAttendance() {
+    this.attendance = []
 
-      this.periods.forEach(e => {
+    this.periods.forEach(e => {
 
-        var givenDate = e.id;
-        var month = givenDate.substring(4, givenDate.length); // retrieves 04
-        var year = givenDate.substring(0, 4);                 // retrieves 2017
+      var givenDate = e.id;
+      var month = givenDate.substring(4, givenDate.length); // retrieves 04
+      var year = givenDate.substring(0, 4);                 // retrieves 2017
 
-        var d = new Date(e.id);
-        var mondays = db.getMondays(d);
+      var d = new Date(e.id);
+      var mondays = this.db.getMondays(d);
 
-       var dates= mondays.map(m=>
-        {
-          return{
-            id:m.toISOString().substring(0, 10) ,
-            weekstarting:m.toISOString().substring(0, 10),
-            midweek:0,
-            weekend:0
-          }
-        })       
-      
+      var dates = mondays.map(m => {
+        return {
+          id: m.toISOString().substring(0, 10),
+          weekstarting: m,
+          midweek: 0,
+          weekend: 0
+        }
+      })
+      this.attendance = [...this.attendance, ...dates];
 
-        this.attendance = [...this.attendance, ...dates];
+      this.attendanceRaw.forEach(a => {
+
+        const index = this.attendance.findIndex(aa => aa.id == a.id)
+        console.log(`index:${index} id:${a.id}`)
+        if (index) {
+          this.attendance[index] = a;
+        }
 
       });
 
-
-    })
-
+    });
   }
 
   ionViewDidLoad() {
@@ -104,7 +110,10 @@ export class MeetingAttendancePage {
           text: 'Save',
           handler: data => {
             console.log('saving...', a, data);
-            this.db.saveAttendance(a.id, data)
+            //data.weekstarting = a.weekstarting;
+           // data.id=a.id
+            a.weekend=+data.weekend
+            this.db.saveAttendance(a.id, a)
           }
         }
       ]
@@ -140,7 +149,8 @@ export class MeetingAttendancePage {
           text: 'Save',
           handler: data => {
             console.log('saving...', a, data);
-            this.db.saveAttendance(a.id, data)
+            a.midweek=+data.midweek
+            this.db.saveAttendance(a.id, a)
           }
         }
       ]
