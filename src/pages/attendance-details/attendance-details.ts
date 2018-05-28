@@ -16,28 +16,46 @@ import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 })
 export class AttendanceDetailsPage {
 
+
   attendanceForm: FormGroup;
-  exampleForm: FormGroup;
 
   items: any = [];
+  dateId:string
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder) {
-    this.attendanceForm = this.fb.group({
-      customerName: '',
-      email: '',
-      items: this.fb.array([this.createItem()])
-    });
+   
+    let dates = navParams.get('dates')
+    this.dateId=navParams.get('id')
 
+   console.log(JSON.stringify( dates))
+
+    let items = dates.map(
+      a=>{
+        this.fb.group({
+          id: a.id,
+          weekName: '',
+          midweek: '',
+          weekend: ''
+        });
+      }
+    )   
+   
     // expan our form, create form array this._fb.array
-    this.exampleForm = this.fb.group({
+    this.attendanceForm = this.fb.group({
       month: ['', [Validators.required,
       Validators.maxLength(25)]],      
-      attendances: this.fb.array([
-        this.getUnit()
-      ])
+      attendances: this.fb.array(
+        []
+      )
     });
-  }
 
+    this.setDates(dates)
+  }
+  setDates(dates: any[]) {
+    const datesFGs = dates.map(d => this.fb.group(d));
+    const datesFormArray = this.fb.array(datesFGs);
+    this.attendanceForm.setControl('attendances', datesFormArray);
+  }
   createItem(): FormGroup {
     return this.fb.group({
       name: '',
@@ -46,10 +64,7 @@ export class AttendanceDetailsPage {
     });
   }
 
-  addItem(): void {
-    var items = this.attendanceForm.get('items') as FormArray;
-    items.push(this.createItem());
-  }
+ 
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AttendanceDetailsPage');
@@ -73,13 +88,13 @@ export class AttendanceDetailsPage {
 
   // add new row
   private addUnit() {
-    const control = <FormArray>this.exampleForm.controls['attendances'];
+    const control = <FormArray>this.attendanceForm.controls['attendances'];
     control.push(this.getUnit());
   }
 
   // remove row
   private removeUnit(i: number) {
-    const control = <FormArray>this.exampleForm.controls['attendances'];
+    const control = <FormArray>this.attendanceForm.controls['attendances'];
     control.removeAt(i);
   }
 

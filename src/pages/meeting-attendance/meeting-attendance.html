@@ -26,16 +26,24 @@
   <ion-list>
     <ion-item *ngFor="let a of attendance">
       <ion-row>
-        <ion-col text-center > {{a.weekstarting|date}} </ion-col>      
-        <ion-col >
-          <button (click)="editMidweek(a)" ion-button  outline>Mid Week: {{a.midweek}}</button>
+        <ion-col text-center> {{a.weekstarting|date}} </ion-col>
+        <ion-col>
+          <button (click)="editMidweek(a)" ion-button outline round small>Mid Week: {{a.midweek}}</button>
         </ion-col>
         <ion-col>
-          <button (click)="editWeekend(a)" ion-button outline >weekend : {{a.weekend}}</button>
-         
+          <button (click)="editWeekend(a)" ion-button outline round small>weekend : {{a.weekend}}</button>
+
         </ion-col>
       </ion-row>
     </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item-sliding *ngFor="let p of periods">
+      <ion-item (click)="editMonthAttendance(p)">     
+        {{p.id | date: 'MMM yyyy'}}
+      </ion-item>
+    </ion-item-sliding>
   </ion-list>
 
 </ion-content>

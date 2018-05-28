@@ -18,18 +18,18 @@ import { AttendanceDetailsPage } from '../attendance-details/attendance-details'
 })
 export class MeetingAttendancePage {
 
-  periods: any=[];
-  attendance: any=[];
-  attendanceRaw: any=[];
+  periods: any = [];
+  months: any = [];
+  attendance: any = [];
+  attendanceRaw: any = [];
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController, public db: DataServiceProvider) {
 
-    db.periods.subscribe(p => {
-
-      console.log("periods:" + p.length);
-      this.periods = db.clone(p);
-      this.loadAttendance()
-    })
+    db.periods.subscribe(
+      p => {
+        this.periods = db.clone(p);
+        this.loadAttendance()
+      })
 
     db.attendance.subscribe(a => {
 
@@ -45,9 +45,9 @@ export class MeetingAttendancePage {
 
     this.periods.forEach(e => {
 
-      var givenDate = e.id;
-      var month = givenDate.substring(4, givenDate.length); // retrieves 04
-      var year = givenDate.substring(0, 4);                 // retrieves 2017
+      /*    var givenDate = e.id;
+         var month = givenDate.substring(4, givenDate.length); // retrieves 04
+         var year = givenDate.substring(0, 4);                 // retrieves 2017 */
 
       var d = new Date(e.id);
       var mondays = this.db.getMondays(d);
@@ -80,7 +80,17 @@ export class MeetingAttendancePage {
   }
 
   editMonthAttendance(a: any) {
-    this.navCtrl.push(AttendanceDetailsPage)
+
+    let dates = this.attendance.filter(d => d.id.startsWith(a.id));
+    
+    let payload = {
+      id: a.id,
+      dates: dates
+    }
+
+  
+
+    this.navCtrl.push(AttendanceDetailsPage, payload)
   }
 
   editWeekend(a: any) {
@@ -111,8 +121,8 @@ export class MeetingAttendancePage {
           handler: data => {
             console.log('saving...', a, data);
             //data.weekstarting = a.weekstarting;
-           // data.id=a.id
-            a.weekend=+data.weekend
+            // data.id=a.id
+            a.weekend = +data.weekend
             this.db.saveAttendance(a.id, a)
           }
         }
@@ -149,7 +159,7 @@ export class MeetingAttendancePage {
           text: 'Save',
           handler: data => {
             console.log('saving...', a, data);
-            a.midweek=+data.midweek
+            a.midweek = +data.midweek
             this.db.saveAttendance(a.id, a)
           }
         }
