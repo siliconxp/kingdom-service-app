@@ -2,7 +2,7 @@
 
 dependencies {
 
-    implementation "com.android.support:customtabs:27.1.1"
+    implementation "com.android.support:customtabs:23.3.0"
 }
 apply from: "../../node_modules/cordova-plugin-browsertab/src/android/BrowserTab.gradle"
 

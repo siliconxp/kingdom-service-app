@@ -1,0 +1,7 @@
+Kh app features
+-load missing reports from tswin to firebase
+-List missing reports
+	group by(group,month,name,none)
+	search name
+-Edit missing reports
+	

@@ -7,59 +7,73 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>attendance-details</ion-title>
+    <ion-title>Attendance</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
- 
+
   <form [formGroup]="attendanceForm" novalidate>
     <!-- Start form units array with first row must and dynamically add more -->
     <ion-card formArrayName="attendances">
-      <ion-card-title>Attendance for {{ dateId | date: 'MMM yyyy'}}</ion-card-title>
+      
+      <ion-item>
+        
+        <h2>{{ dateId | date: 'MMM yyyy'}}</h2>
+        <p>Attendance</p>
+      </ion-item>
       <ion-list>
-      <!-- loop throught units -->
-      <div *ngFor="let a of attendanceForm.controls.attendances.controls; let i=index">
+        <!-- loop throught units -->
+        <div *ngFor="let a of attendanceForm.controls.attendances.controls; let i=index">
 
-          
- <!-- group name in this case row index -->
-        <div [formGroupName]="i">
-          <ion-row>
-            <ion-col>
-              <ion-item>
-                <ion-label>Week #{{i + 1}}{{a.id}}</ion-label>
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item>
-                <ion-input type="number" formControlName="midweek" placeholder="mid week" text-right></ion-input>
-              </ion-item>
-            </ion-col>
-            <ion-col>
-              <ion-item>
-                <ion-input type="number"  formControlName="weekend" placeholder="week end" text-right></ion-input>
-              </ion-item>
-            </ion-col>
-          </ion-row>
+
+          <!-- group name in this case row index -->
+          <div [formGroupName]="i">
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-label>
+                    {{ attendanceForm.controls.attendances.controls[i].controls['id'].value | date: 'MMM dd' }}                 
+                    
+                  </ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-input type="number" formControlName="midweek" placeholder="mid week" text-right></ion-input>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-input type="number" formControlName="weekend" placeholder="week end" text-right></ion-input>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </div>
         </div>
-      </div>
-    </ion-list>
+      </ion-list>
 
-      <!-- New unit button -->
-    <!--   <ion-item>
-        <button mat-raised-button (click)="addUnit()">
-          Add new unit
-        </button>
-      </ion-item> -->
-
-    </ion-card>
-    <!-- End form units array -->
-
+      <ion-row>
+        <ion-col>
+         
+         <ion-item>Midweek:</ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item></ion-item>
+        </ion-col>
+        <ion-col center text-center>
+          
+        </ion-col>
+      </ion-row>
+    </ion-card>  
   </form>
 
+ <!--  valid:{{ attendanceForm.valid }}
+  Value:{{ attendanceForm.value|json }} -->
 
+  
 </ion-content>
 <ion-footer>
   <ion-row>
@@ -68,7 +82,7 @@
         <ion-icon name="close"></ion-icon>Cancel</button>
     </ion-col>
     <ion-col no-padding>
-      <button no-margin ion-button full large color="primary" (click)="saveForm()"  icon-start>
+      <button no-margin ion-button full large color="primary" (click)="saveForm()" icon-start>
         <ion-icon name="checkmark"></ion-icon>Update</button>
     </ion-col>
 
