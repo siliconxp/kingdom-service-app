@@ -4,7 +4,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { AuthProvider } from '../../providers/auth/auth';
 
-import { IonicPage,AlertController,LoadingController, NavController, NavParams,Loading } from 'ionic-angular';
+import { IonicPage, AlertController, LoadingController, NavController, NavParams, Loading } from 'ionic-angular';
 import { SignupPage } from '../signup/signup';
 
 import { TabsPage } from '../tabs/tabs';
@@ -28,29 +28,29 @@ import { EmailValidator } from '../../validators/validators';
 export class LoginPage {
 
   loginData = { username: '', password: '' };
-  loginError:any;
+  loginError: any;
 
   submitted = false;
 
-public loginForm: FormGroup;
-public loading: Loading;
+  public loginForm: FormGroup;
+  public loading: Loading;
 
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public loadingCtrl: LoadingController,
-  public alertCtrl: AlertController,
+    public alertCtrl: AlertController,
     public navParams: NavParams,
     public fb: FormBuilder,
     public afAuth: AngularFireAuth,
-    public authProvider:AuthProvider) {
+    public authProvider: AuthProvider) {
 
 
-      this.loginForm = fb.group({
-        email: ['',
+    this.loginForm = fb.group({
+      email: ['',
         Validators.compose([Validators.required, EmailValidator])],
-        password: ['',
+      password: ['',
         Validators.compose([Validators.minLength(6), Validators.required])]
-      });
+    });
   }
 
   ionViewDidLoad() {
@@ -61,28 +61,28 @@ public loading: Loading;
     this.navCtrl.setRoot(TabsPage);
   }
 
-  
+
   onLogin(form: NgForm) {
 
     this.submitted = true;
     if (form.valid) {
 
       this.authProvider.loginUser(this.loginData.username, this.loginData.password)
-      .then(
-				() => this.navCtrl.setRoot(TabsPage),
-				error => this.loginError = error.message
-)
+        .then(
+          () => this.navCtrl.setRoot(TabsPage),
+          error => this.loginError = error.message
+        )
 
-.then(value => {
-  console.log('Nice, it worked!###');
-})
-.catch(err => {
-  console.log('Something went wrong:', err.message);
-});
+        .then(value => {
+          console.log('Nice, it worked!###');
+        })
+        .catch(err => {
+          console.log('Something went wrong:', err.message);
+        });
 
       this.loginData = { username: '', password: '' };
 
-     // this.navCtrl.push(TabsPage);
+      // this.navCtrl.push(TabsPage);
 
     }
 
@@ -100,7 +100,7 @@ public loading: Loading;
   goToSignup(): void {
     this.navCtrl.push(SignupPage);
   }
-  
+
   goToResetPassword(): void {
     this.navCtrl.push('ResetPasswordPage');
   }
@@ -113,29 +113,29 @@ public loading: Loading;
   }
 
   loginUser(): void {
-    if (!this.loginForm.valid){
+    if (!this.loginForm.valid) {
       console.log(this.loginForm.value);
     } else {
       this.authProvider.loginUser(this.loginForm.value.email,
         this.loginForm.value.password)
-      .then( authData => {
-        this.loading.dismiss().then( () => {
-          this.navCtrl.setRoot(TabsPage);
-        });
-      }, error => {
-        this.loading.dismiss().then( () => {
-          let alert = this.alertCtrl.create({
-            message: error.message,
-            buttons: [
-              {
-                text: "Ok",
-                role: 'cancel'
-              }
-            ]
+        .then(authData => {
+          this.loading.dismiss().then(() => {
+            this.navCtrl.setRoot(TabsPage);
           });
-          alert.present();
+        }, error => {
+          this.loading.dismiss().then(() => {
+            let alert = this.alertCtrl.create({
+              message: error.message,
+              buttons: [
+                {
+                  text: "Ok",
+                  role: 'cancel'
+                }
+              ]
+            });
+            alert.present();
+          });
         });
-      });
       this.loading = this.loadingCtrl.create();
       this.loading.present();
     }
