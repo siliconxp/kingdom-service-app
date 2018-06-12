@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { HomePage } from '../home/home';
+import { ReportsPage } from '../reports/reports';
 import { ListPage } from '../list/list';
 import { MembersPage } from '../members/members';
 import { MeetingAttendancePage } from '../meeting-attendance/meeting-attendance';
@@ -16,7 +17,8 @@ export class TabsPage {
 
   tab1Root = HomePage;
   tab2Root = MembersPage;
-  tab3Root = MeetingAttendancePage;
+  tab3Root = ReportsPage;
+  tab4Root = MeetingAttendancePage;
  
 
   myIndex: number;

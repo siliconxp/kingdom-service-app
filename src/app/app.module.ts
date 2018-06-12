@@ -5,6 +5,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
+import { ReportsPage } from '../pages/reports/reports';
 import { MembersPage } from '../pages/members/members';
 import { MemberDetailPage } from '../pages/member-detail/member-detail';
 import { MemberReportPage } from '../pages/member-report/member-report';
@@ -43,6 +44,7 @@ import { AuthProvider } from '../providers/auth/auth';
     TabsPage,
     HomePage,
     ListPage,
+    ReportsPage,
     MembersPage,
     MemberDetailPage,
     MemberReportPage,
@@ -66,6 +68,7 @@ import { AuthProvider } from '../providers/auth/auth';
     TabsPage,
     HomePage,
     ListPage,
+    ReportsPage,
     MembersPage,
     MemberReportPage,
     MemberReportsPage,    
