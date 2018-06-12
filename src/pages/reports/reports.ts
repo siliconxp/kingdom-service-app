@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
+import { DataServiceProvider } from '../../providers/data-service';
+
+
 /**
  * Generated class for the ReportsPage page.
  *
@@ -15,7 +18,17 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class ReportsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  memberReports:any
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, private db:DataServiceProvider) {
+
+    this.db.reports.subscribe(
+      r=>{
+        this.memberReports=this.db.clone(r)
+      }
+    );
+
+
   }
 
   ionViewDidLoad() {

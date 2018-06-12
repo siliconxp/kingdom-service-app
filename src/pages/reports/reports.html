@@ -15,4 +15,17 @@
 
 <ion-content padding>
 
+  <div *ngIf="memberReports; else loading;">
+      <ion-card *ngFor="let r of memberReports" padding>
+        {{r|json}}
+        </ion-card>
+  </div>
+  <ng-template #loading>
+    Loading your things...
+  </ng-template>
+
+ 
+    
+
+
 </ion-content>

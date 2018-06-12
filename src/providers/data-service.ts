@@ -47,9 +47,11 @@ export class DataServiceProvider {
 
   private meetingAttendanceRef: AngularFirestoreCollection<any>;
   private periodsRef: AngularFirestoreCollection<any>;
+  private reportsRef: AngularFirestoreCollection<any>;
 
   private _groups: BehaviorSubject<any[]> = new BehaviorSubject([]);
   private period$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  private report$: BehaviorSubject<any[]> = new BehaviorSubject([]);
   private _members: BehaviorSubject<any[]> = new BehaviorSubject([]);
   private meetingAttendace$: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
@@ -75,6 +77,9 @@ export class DataServiceProvider {
 
     this.periodsRef = this.afs.collection<any>('domains/1/periods');
     this.periodsRef.valueChanges().subscribe(v => this.period$.next(v))
+
+    this.reportsRef = this.afs.collection<any>('domains/1/reports');
+    this.reportsRef.valueChanges().subscribe(v => this.report$.next(v))
 
 
     this.group$ = this.groupCollectionRef.snapshotChanges().map(actions => {
@@ -530,7 +535,9 @@ export class DataServiceProvider {
   get periods() {
     return this.period$.asObservable();
   }
-
+  get reports() {
+    return this.report$.asObservable();
+  }
 
 
   saveReport(memberKey: string, period: string, data: any) {
