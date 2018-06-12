@@ -20,7 +20,7 @@
     "@angular/http": "5.0.3",
     "@angular/platform-browser": "5.0.3",
     "@angular/platform-browser-dynamic": "5.0.3",
-    "@capacitor/android": "^1.0.0-alpha.37",
+    "@capacitor/android": "^1.0.0-alpha.39",
     "@capacitor/cli": "^1.0.0-alpha.37",
     "@capacitor/core": "^1.0.0-alpha.37",
     "@ionic-native/core": "4.4.0",
@@ -29,12 +29,16 @@
     "@ionic/pro": "1.0.16",
     "@ionic/storage": "2.1.3",
     "angularfire2": "^5.0.0-rc.5-next",
+    "cordova": "^8.0.0",
+    "cordova-android": "^6.4.0",
     "cordova-plugin-add-swift-support": "^1.7.2",
     "cordova-plugin-browsertab": "^0.2.0",
+    "cordova-plugin-buildinfo": "^2.0.1",
     "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-customurlscheme": "^4.3.0",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-inappbrowser": "^3.0.0",
+    "cordova-plugin-ionic": "^2.0.4",
     "cordova-plugin-ionic-webview": "^1.2.1",
     "cordova-plugin-whitelist": "^1.3.3",
     "cordova-universal-links-plugin": "^1.2.1",
@@ -76,6 +80,8 @@
         "URL_SCHEME": "zm.co.me.kh"
       }
     },
-    "platforms": []
+    "platforms": [
+      "android"
+    ]
   }
 }

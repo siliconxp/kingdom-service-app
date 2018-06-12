@@ -100,4 +100,5 @@
     <plugin name="cordova-plugin-customurlscheme" spec="^4.3.0">
         <variable name="URL_SCHEME" value="zm.co.me.kh" />
     </plugin>
+    <engine name="android" spec="^6.4.0" />
 </widget>

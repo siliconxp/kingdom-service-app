@@ -1,8 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">KH App</string>
-    <string name="title_activity_main">KH App</string>
-    <string name="package_name">zm.co.me.kh</string>
-    <string name="fileprovider_authority">zm.co.me.kh.fileprovider</string>
-    <string name="custom_url_scheme">zm.co.me.kh</string>
-</resources>
