@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { DataServiceProvider } from '../../providers/data-service';
 
 import { from } from 'rxjs/observable/from';
 import { groupBy, mergeMap, toArray } from 'rxjs/operators';
+
+import { ReportPage } from '../report/report';
+
 
 
 /**
@@ -23,7 +26,7 @@ export class ReportsPage {
 
   memberReports: any
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private db: DataServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, private db: DataServiceProvider) {
 
     this.db.reports.subscribe(
       r => {
@@ -54,7 +57,7 @@ export class ReportsPage {
           }
         )
 
-        this.memberReports=this.db.clone(group)
+        this.memberReports = this.db.clone(group)
 
 
 
@@ -67,6 +70,29 @@ export class ReportsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ReportsPage');
+  }
+
+
+  editReport(report: any) {
+
+    this.navCtrl.push('ReportPage', { report: report })
+
+    /* let modal = this.modalCtrl.create('ReportPage',{report:report});
+
+    modal.onDidDismiss(
+      data=>{
+
+        this.db.saveReport(report.memberId,report.period,data).then(
+          ()=>console.log("saved")
+        ).catch(
+          e=>console.log("Failed")
+        )
+      }
+    ) 
+
+
+    modal.present();*/
+
   }
 
 }

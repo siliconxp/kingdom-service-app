@@ -16,9 +16,33 @@
 <ion-content padding>
 
   <div *ngIf="memberReports; else loading;">
-    <ion-card *ngFor="let r of memberReports" padding>
-      {{r.fname}} {{r.lname}}
+
+    <ion-card *ngFor="let r of memberReports">
+      <ion-card-header>
+        {{r.fname}} {{r.lname}}
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row>
+         
+          <ion-col *ngFor="let rr of r.reports">
+            <ion-item (click)="editReport(rr)" >
+              {{rr.period}}
+            </ion-item>
+          </ion-col>
+
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- <ion-card *ngFor="let r of memberReports">
+
       <ion-row>
+        <ion-col col-auto>
+          <ion-item>
+            {{r.fname}} {{r.lname}}
+          </ion-item>
+
+        </ion-col>
         <ion-col *ngFor="let rr of r.reports">
           <ion-item>
             {{rr.period}}
@@ -26,7 +50,7 @@
         </ion-col>
 
       </ion-row>
-    </ion-card>
+    </ion-card> -->
   </div>
   <ng-template #loading>
     Loading your things...

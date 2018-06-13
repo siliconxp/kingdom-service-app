@@ -8,11 +8,53 @@
 
   <ion-navbar>
     <ion-title>report</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="onFormSubmit()" *ngIf="edit">
+        <ion-icon name="checkmark"></ion-icon>
+      </button>
+
+    
+      <ion-buttons end>
+        <button ion-button icon-only (click)="saveForm()">
+          <ion-icon name="checkmark"></ion-icon>
+        </button>
+  
+      </ion-buttons>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-
+  <ion-card *ngIf="report">
+    <ion-card-header>
+      {{report.period}} {{report.fname}} {{report.lname}}
+    </ion-card-header>
+    <form (ngSubmit)="saveForm()" [formGroup]="reportForm">
+      <ion-list no-lines>
+        <ion-item>
+          <ion-label>Placements</ion-label>
+          <ion-input type="number" [formControl]="Plcmts" text-right></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Video</ion-label>
+          <ion-input type="number" [formControl]="Videos" name="Videos" text-right></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Hours</ion-label>
+          <ion-input type="number" [formControl]="Hours" name="Hours" text-right></ion-input>          
+        </ion-item>
+        <ion-item>
+          <ion-label>Return Visits</ion-label>
+          <ion-input type="number" [formControl]="RVs" name="RVs" text-right></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Bible Studies</ion-label>
+          <ion-input type="number" [formControl]="BiSt" name="BiSt" text-right></ion-input>
+        </ion-item>
+      </ion-list>
+      <!-- <button ion-button type="submit" block>Save</button> -->
+    </form>
+  </ion-card>
 </ion-content>

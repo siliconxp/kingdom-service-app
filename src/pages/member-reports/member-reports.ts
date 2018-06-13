@@ -42,7 +42,7 @@ export class MemberReportsPage {
     modal.onDidDismiss(
       data=>{
 
-        this.db.saveReport(this.$key,report.id,data).then(
+        this.db.saveMemberReport(this.$key,report.id,data).then(
           ()=>console.log("saved")
         ).catch(
           e=>console.log("Failed")

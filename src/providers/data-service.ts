@@ -540,9 +540,16 @@ export class DataServiceProvider {
   }
 
 
-  saveReport(memberKey: string, period: string, data: any) {
+  saveMemberReport(memberKey: string, period: string, data: any) {
     console.log("saving ..", memberKey, period, data)
     const ref = `domains/1/members/${memberKey}/reports/${period}`;
+    return this.upsert(ref, data)
+
+  }
+  saveReport(memberKey: string, period: string, data: any) {
+    console.log("saving ..", memberKey, period, data)
+    const $reportKey = `${memberKey}+${period}`
+    const ref = `domains/1/reports/${$reportKey}`;
     return this.upsert(ref, data)
 
   }
