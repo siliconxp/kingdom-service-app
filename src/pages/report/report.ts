@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ValidateNoZero } from '../../validators/validators'
 
@@ -40,7 +40,7 @@ export class ReportPage {
     remarks: this.remarks,
     pio: this.pio
   });
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public db: DataServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public loading: LoadingController, public db: DataServiceProvider) {
 
     this.report = navParams.get('report');
   }
@@ -54,19 +54,26 @@ export class ReportPage {
 
   saveForm() {
 
-
-    this.db.saveReport(this.report.memberId, this.report.period, this.reportForm.value).then(
-      () => {
-        console.log("saved", this.reportForm.value)
-        this.navCtrl.pop()
-      }
-
-    ).catch(
-      e => console.log("Failed", this.reportForm.value)
-
-    )
+    let loader = this.loading.create({
+      content: 'Updating...',
+    });
 
 
+    loader.present()
+    
+    
+      this.db.saveReport(this.report.memberId, this.report.period, this.reportForm.value).then(
+        () => {
+          console.log("saved", this.reportForm.value)
+          this.navCtrl.pop()
+        }
+
+      ).catch(
+        e => console.log("Failed", this.reportForm.value)
+      )
+      .then(()=>loader.dismiss())
+      
+    
   }
 
 }
