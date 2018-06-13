@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, LoadingController, ToastController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ValidateNoZero } from '../../validators/validators'
 
@@ -40,7 +40,7 @@ export class ReportPage {
     remarks: this.remarks,
     pio: this.pio
   });
-  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public loading: LoadingController, public db: DataServiceProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public fb: FormBuilder, public viewCtrl: ViewController, public loading: LoadingController, public db: DataServiceProvider, public toastCtrl: ToastController) {
 
     this.report = navParams.get('report');
   }
@@ -60,20 +60,37 @@ export class ReportPage {
 
 
     loader.present()
-    
-    
-      this.db.saveReport(this.report.memberId, this.report.period, this.reportForm.value).then(
-        () => {
-          console.log("saved", this.reportForm.value)
-          this.navCtrl.pop()
-        }
 
-      ).catch(
-        e => console.log("Failed", this.reportForm.value)
-      )
-      .then(()=>loader.dismiss())
-      
-    
+
+    this.db.saveReport(this.report.memberId, this.report.period, this.reportForm.value).then(
+      () => {
+        console.log("saved", this.reportForm.value)
+
+        loader.dismiss()
+        this.showToast(`Report Saved!`)
+        this.navCtrl.pop()
+      }
+
+    ).catch(
+      e => {
+
+        this.showToast(e)
+
+        console.log("Failed", this.reportForm.value)
+      }
+    )
+
+
+
+  }
+
+  showToast(msg: string) {
+    let toast = this.toastCtrl.create({
+      message: `Report Saved!`,
+      duration: 2000
+    });
+
+    toast.present();
   }
 
 }
